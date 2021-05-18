@@ -14,7 +14,7 @@ $( document ).ready( function () {
 		
 	$( "#form" ).validate( {
 		rules: {
-			titulo: 		{ required: true, minlength: 20, maxlength:200, campoValidar: true },
+			titulo: 		{ required: true, minlength: 12, maxlength:200 },
 			texto: 			{ required: true, campoValidar: true }
 		},
 		errorElement: "em",

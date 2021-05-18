@@ -265,7 +265,10 @@ class Settings extends CI_Controller {
 				$msj = "Se actualizó el Proceso!";
 			}
 
-			if ($idProcesoInfo = $this->settings_model->saveProceso()) {
+			if ($idProcesoInfo = $this->settings_model->saveProceso()) 
+			{
+				//guardo regitro en la tabla auditoria
+				$this->settings_model->saveAuditoriaProceso();
 				$data["result"] = true;
 				$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> ' . $msj);
 			} else {

@@ -109,8 +109,8 @@
 	    }
 		
 		/**
-		 * Add/Edit Proceso
-		 * @since 19/3/2021
+		 * Edit Proceso
+		 * @since 18/5/2021
 		 */
 		public function saveProceso() 
 		{
@@ -125,10 +125,39 @@
 					'fk_id_usuario_pi' =>  $idUser,
 					'fecha_registro_informacion' => date("Y-m-d G:i:s"),
 					'title' => $titulo,
-					'texto' => $texto,
+					'texto' => $texto
 				);	
 				$this->db->where('id_proceso_informacion', $idProcesoInfo);
 				$query = $this->db->update('procesos_informacion', $data);
+
+				if ($query) {
+					return true;
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Add Auditoria Proceso
+		 * @since 18/5/2021
+		 */
+		public function saveAuditoriaProceso() 
+		{
+				$idUser = $this->session->userdata("id");
+				$idProcesoInfo = $this->input->post('hddId');
+				$titulo =  $this->security->xss_clean($this->input->post('titulo'));
+				$titulo =  addslashes($titulo);
+				$texto =  $this->security->xss_clean($this->input->post('texto'));
+				$texto =  addslashes($texto);
+				
+				$data = array(
+					'fk_id_proceso_informacion_api' =>  $idProcesoInfo,
+					'fk_id_usuario_api' =>  $idUser,
+					'fecha_registro_informacion_api' => date("Y-m-d G:i:s"),
+					'title_api' => $titulo,
+					'texto_api' => $texto
+				);	
+				$query = $this->db->insert('auditoria_procesos_informacion', $data);
 
 				if ($query) {
 					return true;
