@@ -297,29 +297,16 @@ class Settings extends CI_Controller {
 	}
 
 	/**
-	 * Lista de competencias
-     * @since 12/4/2021
+	 * Historial de procesos
+     * @since 18/5/2021
      * @author BMOTTAG
 	 */
-	public function competencias()
-	{						
-			$data['info'] = $this->general_model->get_competencias_variables();
-
-			$data["view"] = 'competencias';
-			$this->load->view("layout_calendar", $data);
-	}
-	
-	/**
-	 * Lista de valores para las variables de competencias
-     * @since 12/4/2021
-     * @author BMOTTAG
-	 */
-	public function valores_variables($tipoProceso)
-	{						
-			$arrParam = array('idTipoProceso' => $tipoProceso);
-			$data['info'] = $this->general_model->get_valores_variables($arrParam);
-
-			$data["view"] = 'valores_variables';
+	public function historial_procesos()
+	{
+			$arrParam = array('idProcesoInfo' => $this->input->post('hddidProcesosInfo'));
+			$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam);
+			$data['infoProcesosHistorial'] = $this->general_model->get_procesos_historial($arrParam);
+			$data["view"] = 'procesos_historial';
 			$this->load->view("layout_calendar", $data);
 	}
 	

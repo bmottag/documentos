@@ -308,7 +308,7 @@ class General_model extends CI_Model {
 
 		/**
 		 * Consultar registros de procesos
-		 * @since 19/3/2021
+		 * @since 19/5/2021
 		 */
 		public function get_procesos_info($arrData)
 		{
@@ -332,26 +332,19 @@ class General_model extends CI_Model {
 		}
 
 		/**
-		 * Consultar registros de Respuestas
-		 * @since 29/3/2021
+		 * Consultar registros de historial de procesos
+		 * @since 19/5/2021
 		 */
-		public function get_formulario_habilidades($arrData)
+		public function get_procesos_historial($arrData)
 		{
-				$this->db->select();
-				$this->db->join('candidatos C', 'C.id_candidato = H.fk_id_candidato_fh', 'INNER');
-				$this->db->join('proceso P', 'P.id_proceso = C.fk_id_proceso', 'INNER');
-				if (array_key_exists("idFormHabilidades", $arrData)) {
-					$this->db->where('H.id_form_habilidades', $arrData["idFormHabilidades"]);
+				$this->db->select("A.*, CONCAT(first_name, ' ', last_name) name");
+				$this->db->join('usuarios U', 'U.id_user = A.fk_id_usuario_api ', 'INNER');
+				if (array_key_exists("idProcesoInfo", $arrData)) {
+					$this->db->where('A.fk_id_proceso_informacion_api', $arrData["idProcesoInfo"]);
 				}
-				if (array_key_exists("idCandidato", $arrData)) {
-					$this->db->where('H.fk_id_candidato_fh', $arrData["idCandidato"]);
-				}
-				if (array_key_exists('estadoFormulario', $arrData)) {
-					$this->db->where('H.estado_form_habilidades', $arrData['estadoFormulario']);
-				}
-				$this->db->order_by('H.id_form_habilidades', 'desc');
+				$this->db->order_by('A.fk_id_proceso_informacion_api', 'desc');
 
-				$query = $this->db->get('form_habilidades H');
+				$query = $this->db->get('auditoria_procesos_informacion A');
 
 				if ($query->num_rows() > 0) {
 					return $query->result_array();
@@ -360,286 +353,7 @@ class General_model extends CI_Model {
 				}
 		}
 
-		/**
-		 * Consultar registros de Respuestas
-		 * @since 29/3/2021
-		 */
-		public function get_respuestas_formulario_habilidades($arrData)
-		{
-				$this->db->select();
-				$this->db->join('param_preguntas_habilidades P', 'P.id_pregunta_habilidad = H.fk_id_pregunta_habilidades ', 'INNER');
 
-				if (array_key_exists("idFormHabilidades", $arrData)) {
-					$this->db->where('H.fk_id_formulario_habilidades', $arrData["idFormHabilidades"]);
-				}
-				$this->db->order_by('H.fk_id_pregunta_habilidades', 'asc');
-
-				$query = $this->db->get('form_habilidades_respuestas H');
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Consultar registros de formaurlo de aspectgos de interes
-		 * @since 8/4/2021
-		 */
-		public function get_formulario_aspectos_interes($arrData)
-		{
-				$this->db->select();
-				$this->db->join('candidatos C', 'C.id_candidato = H.fk_id_candidato_fai', 'INNER');
-				$this->db->join('proceso P', 'P.id_proceso = C.fk_id_proceso', 'INNER');
-				if (array_key_exists("idFormAspectos", $arrData)) {
-					$this->db->where('H.id_form_aspectos_interes', $arrData["idFormAspectos"]);
-				}
-				if (array_key_exists("idCandidato", $arrData)) {
-					$this->db->where('H.fk_id_candidato_fai', $arrData["idCandidato"]);
-				}
-				if (array_key_exists('estadoFormulario', $arrData)) {
-					$this->db->where('H.estado_form_aspectos_interes', $arrData['estadoFormulario']);
-				}
-				$this->db->order_by('H.id_form_aspectos_interes', 'desc');
-
-				$query = $this->db->get('form_aspectos_interes H');
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Consultar preguntas formulario de aspecto de interes
-		 * @since 8/4/2021
-		 */
-		public function get_preguntas_aspectos_interes($arrData)
-		{
-				$this->db->select();
-				if (array_key_exists("numeroParte", $arrData)) {
-					$this->db->where('P.numero_parte ', $arrData["numeroParte"]);
-				}
-				$this->db->order_by('P.id_pregunta_aspecto_interes', 'asc');
-
-				$query = $this->db->get('param_aspectos_interes_preguntas P');
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Consultar opciones de las preguntas del formulario de aspecto de interes
-		 * @since 9/4/2021
-		 */
-		public function get_opciones_preguntas_aspectos_interes($arrData)
-		{
-				$this->db->select();
-				if (array_key_exists("idPregunta", $arrData)) {
-					$this->db->where('P.fk_id_pregunta_aspecto_interes', $arrData["idPregunta"]);
-				}
-				$this->db->order_by('P.numero_opcion', 'asc');
-
-				$query = $this->db->get('param_aspectos_interes_opciones P');
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Consultar registros de Respuestas cuestionario de aspectos de interes
-		 * @since 29/3/2021
-		 */
-		public function get_formulario_aspectos($arrData)
-		{
-				$this->db->select();
-				$this->db->join('candidatos C', 'C.id_candidato = H.fk_id_candidato_fai', 'INNER');
-				$this->db->join('proceso P', 'P.id_proceso = C.fk_id_proceso', 'INNER');
-				if (array_key_exists("idFormAspectos", $arrData)) {
-					$this->db->where('H.id_form_aspectos_interes', $arrData["idFormAspectos"]);
-				}
-				if (array_key_exists("idCandidato", $arrData)) {
-					$this->db->where('H.fk_id_candidato_fai', $arrData["idCandidato"]);
-				}
-				$this->db->order_by('H.id_form_aspectos_interes', 'desc');
-
-				$query = $this->db->get('form_aspectos_interes H');
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Consultar registros de Respuestas cuestionario de aspectos de interes
-		 * @since 10/4/2021
-		 */
-		public function get_respuestas_formulario_aspectos($arrData)
-		{
-				$this->db->select();
-				$this->db->join('param_aspectos_interes_opciones O', 'O.id_opciones_aspectos_interes = H.fk_id_opciones_aspectos_interes', 'INNER');
-				$this->db->join('param_aspectos_interes_preguntas P', 'P.id_pregunta_aspecto_interes = O.fk_id_pregunta_aspecto_interes', 'INNER');
-
-				if (array_key_exists('idFormAspectos', $arrData)) {
-					$this->db->where('H.fk_id_formulario_aspectos_interes', $arrData['idFormAspectos']);
-				}
-				$this->db->order_by('P.numero_pregunta_aspecto_interes , O.numero_opcion', 'asc');
-
-				$query = $this->db->get('form_aspectos_interes_respuestas H');
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Consultar registros de Calculos sumatoria formulario de aspectos de interes
-		 * @since 11/4/2021
-		 */
-		public function get_calculos_formulario_aspectos($arrData)
-		{
-				$this->db->select("S.*, F.numero_parte_formulario, F.fecha_registro_inicio, F.fecha_registro_fin, C.id_candidato, CONCAT(nombres, ' ', apellidos) name, C.numero_identificacion");
-				$this->db->join('form_aspectos_interes F', 'F.id_form_aspectos_interes = S.fk_id_form_aspectos_interes_c', 'INNER');
-				$this->db->join('candidatos C', 'C.id_candidato = F.fk_id_candidato_fai', 'INNER');
-				if (array_key_exists('estadoFormulario', $arrData)) {
-					$this->db->where('F.estado_form_aspectos_interes', $arrData['estadoFormulario']);
-				}
-				if (array_key_exists("estadoCandidato", $arrData)) {
-					$this->db->where('C.estado_candidato', $arrData["estadoCandidato"]);
-				}
-				$this->db->order_by('name', 'asc');
-
-				$query = $this->db->get('form_aspectos_interes_calculos S');
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Lista de comeptencias
-		 * @since 12/4/2021
-		 */
-		public function get_competencias_variables() 
-		{			
-				$this->db->select();
-				$this->db->join('param_competencias C', 'C.id_competencia = R.fk_id_competencias', 'INNER');
-				$this->db->join('param_competencias_formulas F', 'F.id_competencias_formulas = R.fk_id_competencias_formulas', 'INNER');
-
-				$this->db->order_by('id_competencia', 'asc');
-				$query = $this->db->get("param_competencias_relacion_formulas R");
-
-				if($query->num_rows() >= 1){
-					return $query->result_array();
-				}else{
-					return false;
-				}
-		}
-
-		/**
-		 * Lista de valores para las variables de las competencias
-		 * @since 12/4/2021
-		 */
-		public function get_valores_variables($arrData) 
-		{			
-				$this->db->select();
-				$this->db->join('param_tipo_proceso T', 'T.id_tipo_proceso = V.fk_id_tipo_proceso', 'INNER');
-				$this->db->join('param_competencias_relacion_formulas R', 'R.id_competencias_relacion = V.fk_id_competencias_relacion', 'INNER');
-				$this->db->join('param_competencias C', 'C.id_competencia = R.fk_id_competencias', 'INNER');
-				$this->db->join('param_competencias_formulas F', 'F.id_competencias_formulas = R.fk_id_competencias_formulas ', 'INNER');
-				if(array_key_exists("idTipoProceso", $arrData)){
-					$this->db->where('V.fk_id_tipo_proceso', $arrData["idTipoProceso"]);
-				}
-
-				$this->db->order_by('id_competencia', 'asc');
-				$query = $this->db->get("param_competencias_valores V");
-
-				if ($query->num_rows() >= 1) {
-					return $query->result_array();
-				}else{
-					return false;
-				}
-		}
-
-		/**
-		 * Consultar registros de Calculos para las competenias
-		 * @since 16/4/2021
-		 */
-		public function get_calculos_competencias($arrData)
-		{
-				$this->db->select("CC.*, CONCAT(nombres, ' ', apellidos) name, C.numero_identificacion");
-				$this->db->join('candidatos C', 'C.id_candidato = CC.fk_id_candidato_cc', 'INNER');
-				if (array_key_exists('estadoCandidato', $arrData)) {
-					$this->db->where('C.estado_candidato', $arrData['estadoCandidato']);
-				}
-				$this->db->order_by('name', 'asc');
-				$query = $this->db->get('form_competencias_calculos CC');
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Consultar registros de Calculos sumatoria formulario de Habilidades
-		 * @since 18/4/2021
-		 */
-		public function get_calculos_formulario_habilidades($arrData)
-		{
-				$this->db->select("S.*, F.numero_parte_formulario, F.fecha_registro_inicio, F.fecha_registro_fin,  C.id_candidato, CONCAT(nombres, ' ', apellidos) name, C.numero_identificacion");
-				$this->db->join('form_habilidades F', 'F.id_form_habilidades = S.fk_id_form_habilidades_c', 'INNER');
-				$this->db->join('candidatos C', 'C.id_candidato = F.fk_id_candidato_fh', 'INNER');
-				if (array_key_exists('estadoFormulario', $arrData)) {
-					$this->db->where('F.estado_form_habilidades', $arrData['estadoFormulario']);
-				}
-				if (array_key_exists("estadoCandidato", $arrData)) {
-					$this->db->where('C.estado_candidato', $arrData["estadoCandidato"]);
-				}
-				$this->db->order_by('name', 'asc');
-
-				$query = $this->db->get('form_habilidades_calculos S');
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Consultar registros de puntajes
-		 * @since 30/4/2021
-		 */
-		public function get_puntaje($arrData)
-		{
-				$this->db->select();
-				if (array_key_exists('idPuntaje', $arrData)) {
-					$this->db->where('P.id_puntaje', $arrData['idPuntaje']);
-				}
-				$query = $this->db->get('candidatos_puntajes P');
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
 
 
 

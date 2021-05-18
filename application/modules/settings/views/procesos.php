@@ -1,9 +1,6 @@
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <script>
 $(function(){ 
-	$(".btn-success").click(function () {	
+	$(".btn-info").click(function () {	
 			var oID = $(this).attr("id");
             $.ajax ({
                 type: 'POST',
@@ -79,7 +76,7 @@ $(function(){
                                 <th class='text-center'>Título</th>
                                 <th class='text-center'>Código</th>
                                 <th class='text-center'>Texto</th>
-                                <th class='text-center'>Editar</th>
+                                <th class='text-center'>Enlaces</th>
 							</tr>
 						</thead>
 						<?php
@@ -90,9 +87,20 @@ $(function(){
                                  echo "<td>" . $item['texto'] . "</td>";
 								echo "<td class='text-center'>";
 						?>
-								<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $item['id_proceso_informacion']; ?>" >
+								<button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $item['id_proceso_informacion']; ?>" >
 									Editar <span class="glyphicon glyphicon-edit" aria-hidden="true">
 								</button>
+								<br><br>
+
+	                            <form  name="formHistorial" id="formHistorial" method="post" action="<?php echo base_url("settings/historial_procesos"); ?>">
+	                                <input type="hidden" class="form-control" id="hddidProcesosInfo" name="hddidProcesosInfo" value="<?php echo $item['id_proceso_informacion']; ?>" />
+	                                
+	                                <button type="submit" class="btn btn-default btn-xs" id="btnSubmit2" name="btnSubmit2">
+	                                    Ver Cambios <span class="fa fa-file-pdf-o" aria-hidden="true" />
+	                                </button>
+	         
+	                            </form>
+
 						<?php
 								echo "</td>";
                                 echo '</tr>';
