@@ -295,18 +295,16 @@ class General_model extends CI_Model {
 		public function get_procesos_info($arrData)
 		{
 				$this->db->select();
-				$this->db->join('param_dependencias D', 'D.id_dependencia = P.fk_id_dependencia', 'INNER');
-				$this->db->join('param_tipo_proceso T', 'T.id_tipo_proceso = P.fk_id_tipo_proceso', 'INNER');
+				$this->db->join('procesos_informacion I', 'I.fk_id_proceso = P.id_proceso', 'INNER');
 				if (array_key_exists("idProceso", $arrData)) {
 					$this->db->where('P.id_proceso ', $arrData["idProceso"]);
 				}
-				if (array_key_exists("estadoProceso", $arrData)) {
-					$this->db->where('P.estado_proceso', $arrData["estadoProceso"]);
+				if (array_key_exists("idProcesoInfo", $arrData)) {
+					$this->db->where('I.id_proceso_informacion', $arrData["idProcesoInfo"]);
 				}
+				$this->db->order_by('P.id_proceso, I.codigo', 'asc');
 
-				$this->db->order_by('P.numero_proceso', 'asc');
-
-				$query = $this->db->get('proceso P');
+				$query = $this->db->get('procesos P');
 
 				if ($query->num_rows() > 0) {
 					return $query->result_array();

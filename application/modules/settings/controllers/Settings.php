@@ -217,153 +217,13 @@ class Settings extends CI_Controller {
 	}
 	
 	/**
-	 * Lista de candidatos
-     * @since 19/3/2021
-     * @author BMOTTAG
-	 */
-	public function candidatos($state)
-	{
-			$data['state'] = $state;
-
-			$arrParam = array('estadoCandidato' => $state);
-			$data['infoCandidatos'] = $this->general_model->get_candidatos_info($arrParam);
-			
-			$data["view"] = 'candidatos';
-			$this->load->view("layout_calendar", $data);
-	}
-	
-    /**
-     * Cargo modal - formulario CANDIDATOS
-     * @since 19/3/2021
-     */
-    public function cargarModalCandidatos() 
-	{
-			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
-			
-			$data['information'] = FALSE;
-			$data["idCandidato"] = $this->input->post("idCandidato");	
-
-			$arrParam = array(
-				"table" => "param_nivel_academico",
-				"order" => "id_nivel_academico",
-				"id" => "x"
-			);
-			$data['nivelAcademico'] = $this->general_model->get_basic_search($arrParam);
-
-			$arrParam = array("estadoProceso" => 1);
-			$data['procesos'] = $this->general_model->get_procesos_info($arrParam);
-		
-			if ($data["idCandidato"] != 'x') {
-				$arrParam = array("idCandidato" => $data["idCandidato"]);
-				$data['information'] = $this->general_model->get_candidatos_info($arrParam);
-			}
-			
-			$this->load->view("candidatos_modal", $data);
-    }
-	
-	/**
-	 * Save candidato
-     * @since 24/3/2021
-     * @author BMOTTAG
-	 */
-	public function save_candidato()
-	{			
-			header('Content-Type: application/json');
-			$data = array();
-		
-			$bandera = $idCandidato = $this->input->post('hddId');
-			
-			$msj = "Se adicionó el Candidato!";
-			if ($idCandidato != '') {
-				$msj = "Se actualizó el Candidato!";
-			}
-
-			$numeroIdentificacionCandidato = $this->input->post('numeroIdentificacion');
-			$emailCandidato = $this->input->post('email');
-			
-			$result_candidato = false;
-			$result_email = false;
-			
-			//verificar si ya existe el usuario
-			$arrParam = array(
-				"idCandidato" => $idCandidato,
-				"column" => "numero_identificacion",
-				"value" => $numeroIdentificacionCandidato
-			);
-			$result_candidato = $this->settings_model->verificarCandidato($arrParam);
-			
-			//verificar si ya existe el correo
-			$arrParam = array(
-				"idCandidato" => $idCandidato,
-				"column" => "correo",
-				"value" => $emailCandidato
-			);
-			$result_email = $this->settings_model->verificarCandidato($arrParam);
-
-			if ($result_candidato || $result_email)
-			{
-				$data["result"] = "error";
-				if($result_candidato)
-				{
-					$data["mensaje"] = " Error. El número de identificación ya existe.";
-					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> El número de identificación ya existe.');
-				}
-				if($result_email)
-				{
-					$data["mensaje"] = " Error. El correo ya existe.";
-					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> El correo ya existe.');
-				}
-				if($result_candidato && $result_email)
-				{
-					$data["mensaje"] = " Error. El número de identificación y el correo ya existen.";
-					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> El número de identificación y el correo ya existen.');
-				}
-			} else {
-				if ($idCandidato = $this->settings_model->saveCandidato()) 
-				{
-					if ($bandera == '') {
-						//creo registro de calculo de competencias para el candidato
-						$this->settings_model->saveCalculoCompetenciasRecord($idCandidato);
-					}
-					$data["result"] = true;
-					$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> ' . $msj);
-				} else {
-					$data["result"] = "error";
-					$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Ask for help');
-				}
-			}
-
-			echo json_encode($data);	
-    }
-
-	/**
-	 * Bloquear/Desbloqear CANDIDATOS
-     * @since 24/3/2021
-     * @author BMOTTAG
-	 */
-	public function bloquear_candidatos($state)
-	{	
-			if ($this->settings_model->actualizarEstadoCandidatos($state)) {
-				$data["result"] = true;
-				$this->session->set_flashdata('retornoExito', "Se actualizó el estado de los Candidatos!!");
-			} else {
-				$data["result"] = "error";
-				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
-			}
-
-			redirect(base_url('settings/candidatos/1'), 'refresh');
-	}
-
-	/**
 	 * Lista de procesos
-     * @since 19/3/2021
+     * @since 18/5/2021
      * @author BMOTTAG
 	 */
-	public function procesos($state)
+	public function procesos()
 	{
-			$data['state'] = $state;
-
-			$arrParam = array('estadoProceso' => $state);
+			$arrParam = array();
 			$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam); 
 			$data["view"] = 'procesos';
 			$this->load->view("layout_calendar", $data);
@@ -378,24 +238,10 @@ class Settings extends CI_Controller {
 			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
 			
 			$data['information'] = FALSE;
-			$data["idProceso"] = $this->input->post("idProceso");	
-
-			$arrParam = array(
-				"table" => "param_dependencias",
-				"order" => "dependencia",
-				"id" => "x"
-			);
-			$data['dependencias'] = $this->general_model->get_basic_search($arrParam);
-
-			$arrParam = array(
-				"table" => "param_tipo_proceso",
-				"order" => "tipo_proceso",
-				"id" => "x"
-			);
-			$data['tipoProceso'] = $this->general_model->get_basic_search($arrParam);
+			$data["idProcesoInfo"] = $this->input->post("idProcesoInfo");	
 			
-			if ($data["idProceso"] != 'x') {
-				$arrParam = array("idProceso" => $data["idProceso"]);
+			if ($data["idProcesoInfo"] != 'x') {
+				$arrParam = array("idProcesoInfo" => $data["idProcesoInfo"]);
 				$data['information'] = $this->general_model->get_procesos_info($arrParam);
 			}
 			
@@ -412,14 +258,14 @@ class Settings extends CI_Controller {
 			header('Content-Type: application/json');
 			$data = array();
 		
-			$idProceso = $this->input->post('hddId');
+			$idProcesoInfo = $this->input->post('hddId');
 			
 			$msj = "Se adicionó un nuevo Proceso!";
-			if ($idProceso != '') {
+			if ($idProcesoInfo != '') {
 				$msj = "Se actualizó el Proceso!";
 			}
 
-			if ($idProceso = $this->settings_model->saveProceso()) {
+			if ($idProcesoInfo = $this->settings_model->saveProceso()) {
 				$data["result"] = true;
 				$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> ' . $msj);
 			} else {

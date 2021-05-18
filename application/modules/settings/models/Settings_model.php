@@ -114,130 +114,21 @@
 		 */
 		public function saveProceso() 
 		{
-				$idProceso = $this->input->post('hddId');
+				$idUser = $this->session->userdata("id");
+				$idProcesoInfo = $this->input->post('hddId');
+				$titulo =  $this->security->xss_clean($this->input->post('titulo'));
+				$titulo =  addslashes($titulo);
+				$texto =  $this->security->xss_clean($this->input->post('texto'));
+				$texto =  addslashes($texto);
 				
 				$data = array(
-					'numero_proceso' => $this->input->post('numeroProceso'),
-					'fk_id_tipo_proceso' => $this->input->post('id_tipo_proceso'),
-					'fk_id_dependencia' => $this->input->post('id_dependencia')
+					'fk_id_usuario_pi' =>  $idUser,
+					'fecha_registro_informacion' => date("Y-m-d G:i:s"),
+					'title' => $titulo,
+					'texto' => $texto,
 				);	
-
-				//revisar si es para adicionar o editar
-				if ($idProceso == '') 
-				{
-					$data['estado_proceso'] = 1;
-					$data['fecha_registro_proceso'] = date("Y-m-d");
-					$query = $this->db->insert('proceso', $data);
-				} else {
-					$data['estado_proceso'] = $this->input->post('estado');
-					$this->db->where('id_proceso', $idProceso);
-					$query = $this->db->update('proceso', $data);
-				}
-				if ($query) {
-					return true;
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Actualizar estado de los procesos
-		 * @since 24/3/2021
-		 */
-		public function actualizarEstadoProcesos($state) 
-		{
-			//if it comes from the active view, then inactive everything
-			//else do nothing and continue with the activation
-			if($state == 1){
-				//update all states to inactive
-				$data['estado_proceso'] = 2;
-				$query = $this->db->update('proceso', $data);
-			}
-
-			//update states
-			$query = 1;
-			if ($procesos = $this->input->post('disponibilidad')) {
-				$tot = count($procesos);
-				for ($i = 0; $i < $tot; $i++) {
-					$data['estado_proceso'] = 1;
-					$this->db->where('id_proceso', $procesos[$i]);
-					$query = $this->db->update('proceso', $data);					
-				}
-			}
-			if ($query) {
-				return true;
-			} else{
-				return false;
-			}
-		}
-
-		/**
-		 * Verify si el candidato ya existe por numero de identificacion
-		 * @author BMOTTAG
-		 * @since  1/4/2021
-		 */
-		public function verificarCandidato($arrData) 
-		{
-				if (array_key_exists("idCandidato", $arrData)) {
-					$this->db->where('id_candidato !=', $arrData["idCandidato"]);
-				}			
-
-				$this->db->where($arrData["column"], $arrData["value"]);
-				$query = $this->db->get("candidatos");
-
-				if ($query->num_rows() >= 1) {
-					return true;
-				} else{ return false; }
-		}
-
-		/**
-		 * Add/Edit CANDIDATO
-		 * @since 24/3/2021
-		 */
-		public function saveCandidato() 
-		{
-				$idCandidato = $this->input->post('hddId');
-				
-				$data = array(
-					'nombres' => $this->input->post('firstName'),
-					'apellidos' => $this->input->post('lastName'),
-					'numero_identificacion' => $this->input->post('numeroIdentificacion'),
-					'correo' => $this->input->post('email'),
-					'numero_celular' => $this->input->post('movilNumber'),
-					'edad' => $this->input->post('edad'),
-					'fk_id_nivel_academico' => $this->input->post('nivelAcademico'),
-					'profesion' => $this->input->post('profesion'),
-					'ciudad' => $this->input->post('ciudad'),
-					'fk_id_proceso' => $this->input->post('numeroProceso')
-				);	
-
-				//revisar si es para adicionar o editar
-				if ($idCandidato == '') {
-					$data['estado_candidato'] = 1;//si es para adicionar se coloca estado inicial como ACTIVO
-					$query = $this->db->insert('candidatos', $data);
-					$idCandidato = $this->db->insert_id();
-				} else {
-					$data['estado_candidato'] = $this->input->post('state');
-					$this->db->where('id_candidato', $idCandidato);
-					$query = $this->db->update('candidatos', $data);
-				}
-				if ($query) {
-					return $idCandidato;
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Crear registro de valores de las competencias
-		 * @since 16/4/2021
-		 */
-		public function saveCalculoCompetenciasRecord($idCandidato) 
-		{				
-				$data = array(
-					'fk_id_candidato_cc' => $idCandidato
-				);	
-				$query = $this->db->insert('form_competencias_calculos', $data);
+				$this->db->where('id_proceso_informacion', $idProcesoInfo);
+				$query = $this->db->update('procesos_informacion', $data);
 
 				if ($query) {
 					return true;
@@ -246,40 +137,7 @@
 				}
 		}
 
-		/**
-		 * Actualizar estado de los candidatos
-		 * @since 24/3/2021
-		 */
-		public function actualizarEstadoCandidatos($state) 
-		{
-			//if it comes from the active view, then inactive everything
-			//else do nothing and continue with the activation
-			if($state == 1){
-				//update all states to inactive
-				$data['estado_candidato'] = 2;
-				$query = $this->db->update('candidatos', $data);
-			}
 
-			//update states
-			$query = 1;
-			if ($candidatos = $this->input->post('disponibilidad')) {
-				$tot = count($candidatos);
-				for ($i = 0; $i < $tot; $i++) {
-					$data['estado_candidato'] = 1;
-					$this->db->where('id_candidato', $candidatos[$i]);
-					$query = $this->db->update('candidatos', $data);					
-				}
-			}
-			if ($query) {
-				return true;
-			} else{
-				return false;
-			}
-		}
-
-
-		
-		
 		
 	    
 	}

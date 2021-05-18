@@ -1,10 +1,21 @@
 $( document ).ready( function () {
+
+	jQuery.validator.addMethod("campoValidar", function(value, element, param) {
+		var titulo = $('#titulo').val();
+		var texto = $('#texto').val();
+		var hddTitulo = $('#hddTitulo').val();
+		var hddTexto = $('#hddTexto').val();
+		if ( titulo == hddTitulo && texto == hddTexto) {
+			return false;
+		}else{
+			return true;
+		}
+	}, "Si desea guardar, debe hacer cambios en los textos.");
 		
 	$( "#form" ).validate( {
 		rules: {
-			numeroProceso: 			{ required: true, minlength: 4, maxlength:20 },
-			id_tipo_proceso: 		{ required: true },
-			id_dependencia:	 		{ required: true }
+			titulo: 		{ required: true, minlength: 20, maxlength:200, campoValidar: true },
+			texto: 			{ required: true, campoValidar: true }
 		},
 		errorElement: "em",
 		errorPlacement: function ( error, element ) {
@@ -14,10 +25,10 @@ $( document ).ready( function () {
 
 		},
 		highlight: function ( element, errorClass, validClass ) {
-			$( element ).parents( ".col-sm-6" ).addClass( "has-error" ).removeClass( "has-success" );
+			$( element ).parents( ".col-sm-12" ).addClass( "has-error" ).removeClass( "has-success" );
 		},
 		unhighlight: function (element, errorClass, validClass) {
-			$( element ).parents( ".col-sm-6" ).addClass( "has-success" ).removeClass( "has-error" );
+			$( element ).parents( ".col-sm-12" ).addClass( "has-success" ).removeClass( "has-error" );
 		},
 		submitHandler: function (form) {
 			return true;
