@@ -21,7 +21,7 @@ class Access extends CI_Controller {
 			$data['info'] = $this->general_model->get_menu($arrParam);
 
 			$data["view"] = 'menu';
-			$this->load->view("layout", $data);
+			$this->load->view("layout_calendar", $data);
 	}
 	
     /**
@@ -82,7 +82,7 @@ class Access extends CI_Controller {
 			$data['info'] = $this->general_model->get_links($arrParam);
 			
 			$data["view"] = 'links';
-			$this->load->view("layout", $data);
+			$this->load->view("layout_calendar", $data);
 	}
 	
     /**
@@ -146,7 +146,7 @@ class Access extends CI_Controller {
 			$data['info'] = $this->general_model->get_role_access($arrParam);
 
 			$data["view"] = 'role_access';
-			$this->load->view("layout", $data);
+			$this->load->view("layout_calendar", $data);
 	}
 	
     /**
