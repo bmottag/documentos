@@ -290,6 +290,24 @@ class General_model extends CI_Model {
 
 		/**
 		 * Consultar registros de procesos
+		 * @since 18/5/2021
+		 */
+		public function get_procesos()
+		{
+				$this->db->select();
+				$this->db->order_by('P.id_proceso', 'asc');
+
+				$query = $this->db->get('procesos P');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Consultar registros de procesos
 		 * @since 19/3/2021
 		 */
 		public function get_procesos_info($arrData)

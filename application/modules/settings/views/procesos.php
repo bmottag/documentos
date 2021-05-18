@@ -20,23 +20,11 @@ $(function(){
 
 <div id="page-wrapper">
 	<br>
-	<div class="row">
-		<div class="col-md-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h4 class="list-group-item-heading">
-					<i class="fa fa-briefcase  fa-fw"></i> CONFIGURACIÓN - PROCESOS
-					</h4>
-				</div>
-			</div>
-		</div>
-		<!-- /.col-lg-12 -->				
-	</div>
 	
 	<!-- /.row -->
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="panel panel-default">
+			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<i class="fa fa-briefcase"></i> LISTA DE PROCESOS
 				</div>
@@ -63,40 +51,68 @@ $(function(){
 	}
 ?> 
 
-				<?php
-					if($infoProcesos){
+
+<!--INICIO HAZARDS -->
+<?php 
+	if($infoProcesos){
+		$ci = &get_instance();
+		$ci->load->model("general_model");
+		foreach ($infoProcesos as $lista):
+			$arrParam = array('idProceso' => $lista['id_proceso']);
+			$detalleProcesos = $this->general_model->get_procesos_info($arrParam);		
+?>
+	<!-- /.row -->
+	<div class="row">
+		<div class="col-lg-12">				
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<i class="fa fa-thumb-tack"></i> <strong><?php echo $lista['proceso']; ?></strong>
+				</div>
+				<div class="panel-body">
+
+				<?php 
+					if($detalleProcesos){
 				?>				
-					<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
+					<table class="table table-hover">
 						<thead>
 							<tr>
-                                <th class='text-center'>Proceso</th>
                                 <th class='text-center'>Título</th>
                                 <th class='text-center'>Código</th>
                                 <th class='text-center'>Texto</th>
                                 <th class='text-center'>Editar</th>
 							</tr>
 						</thead>
-						<tbody>							
 						<?php
-							foreach ($infoProcesos as $lista):
+							foreach ($detalleProcesos as $item):
 								echo '<tr>';
-                                echo "<td class='text-center " . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong><small>" . $lista['proceso'] . "</small></strong></td>";
-                                echo "<td class='" . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong><small>" . $lista['title'] . "</small></strong></td>";
-								echo "<td class='text-center " . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong><small>" . $lista['codigo'] . "</small></strong></td>";
-                                 echo "<td class='" . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong><small>" . $lista['texto'] . "</small></strong></td>";
+                                echo "<td>" . $item['title'] . "</td>";
+								echo "<td class='text-center'>" . $item['codigo'] . "</td>";
+                                 echo "<td>" . $item['texto'] . "</td>";
 								echo "<td class='text-center'>";
-					?>
-								<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_proceso_informacion']; ?>" >
+						?>
+								<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $item['id_proceso_informacion']; ?>" >
 									Editar <span class="glyphicon glyphicon-edit" aria-hidden="true">
 								</button>
-					<?php
+						<?php
 								echo "</td>";
                                 echo '</tr>';
 							endforeach;
 						?>
-						</tbody>
 					</table>
 				<?php } ?>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<?php 
+		endforeach;
+} 
+?>
+<!--FIN HAZARDS -->
+
+
 				</div>
 				<!-- /.panel-body -->
 			</div>
@@ -125,7 +141,7 @@ $(document).ready(function() {
 		responsive: true,
 		"pageLength": 25,
 		 "ordering": false,
-		 paging: false,
+		 paging: false
 	});
 });
 </script>

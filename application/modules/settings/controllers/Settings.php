@@ -223,8 +223,7 @@ class Settings extends CI_Controller {
 	 */
 	public function procesos()
 	{
-			$arrParam = array();
-			$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam); 
+			$data['infoProcesos'] = $this->general_model->get_procesos();
 			$data["view"] = 'procesos';
 			$this->load->view("layout_calendar", $data);
 	}
