@@ -64,7 +64,7 @@
 	    				redirect("/usuarios","location",301);
 	    				break;
 	    		case 1: //ACTIVE USER
-						redirect($dashboardURL,"location",301);
+						redirect("settings/procesos","location",301);
 	    				break;
 	    		case 2: //INACTIVE USER
 	    				$this->session->sess_destroy();

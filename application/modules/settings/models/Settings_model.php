@@ -166,6 +166,45 @@
 				}
 		}
 
+		/**
+		 * Add/Edit DOCUMENTS
+		 * @since 25/5/2021
+		 */
+		public function saveDocumento($archivo) 
+		{
+				$idDocumento = $this->input->post('hddidDocumento');
+				$idUser = $this->session->userdata("id");
+				
+				$data = array(
+					'fk_id_proceso_informacion' => $this->input->post('hddidProcesosInfo'),
+					'fk_id_tema' => $this->input->post('hddidTema'),
+					'fk_id_usuario' => $idUser,
+					'fecha_registro' => date("Y-m-d G:i:s"),
+					'cod' => $this->input->post('codigo'),
+					'shortName' => $this->input->post('nombre'),
+					'longName' => '',
+					'orden' => $this->input->post('orden'),
+					'estado' => $this->input->post('estado')
+				);
+
+				if($archivo != 'xxx'){
+					$data['url'] = $archivo;
+				}
+
+				//revisar si es para adicionar o editar
+				if ($idDocumento == '') {
+					$query = $this->db->insert('procesos_documentos', $data);			
+				} else {
+					$this->db->where('id_procesos_documento', $idDocumento);
+					$query = $this->db->update('procesos_documentos', $data);
+				}
+				if ($query) {
+					return true;
+				} else {
+					return false;
+				}
+		}
+
 
 		
 	    

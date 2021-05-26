@@ -353,6 +353,51 @@ class General_model extends CI_Model {
 				}
 		}
 
+		/**
+		 * Consultar registros de temas
+		 * @since 18/5/2021
+		 */
+		public function get_temas($arrData)
+		{
+				$this->db->select();
+				if (array_key_exists("idTema", $arrData)) {
+					$this->db->where('T.id_tema', $arrData["idTema"]);
+				}
+				$this->db->order_by('T.id_tema', 'asc');
+
+				$query = $this->db->get('temas T');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Consultar ducumentos de proceso
+		 * @since 25/5/2021
+		 */
+		public function get__documentos_procesos($arrData)
+		{
+				$this->db->select();
+				if (array_key_exists("idProcesoInfo", $arrData)) {
+					$this->db->where('D.fk_id_proceso_informacion', $arrData["idProcesoInfo"]);
+				}
+				if (array_key_exists("idTema", $arrData)) {
+					$this->db->where('D.fk_id_tema', $arrData["idTema"]);
+				}
+				$this->db->order_by('D.orden', 'asc');
+
+				$query = $this->db->get('procesos_documentos D');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
 
 
 

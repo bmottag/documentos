@@ -6,7 +6,7 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<a class="btn btn-primary btn-xs" href=" <?php echo base_url('settings/procesos'); ?> "><span class="glyphicon glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Regresar </a> 
-					<i class="fa fa-briefcase"></i> CAMBIOS REALIZADOS AL PROCESO: <strong><?php echo $infoProcesos[0]['title'] ?></strong>
+					<i class="fa fa-clock-o"></i> CAMBIOS REALIZADOS AL PROCESO: <strong><?php echo $infoProcesos[0]['title'] ?></strong>
 				</div>
 				<div class="panel-body">
 

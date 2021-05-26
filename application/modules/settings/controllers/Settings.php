@@ -212,7 +212,7 @@ class Settings extends CI_Controller {
 				echo "pailas no son iguales";
 			}
 						
-			$data["view"] = "template/answer";
+			$data['view'] = "template/answer";
 			$this->load->view("layout", $data);
 	}
 	
@@ -306,9 +306,92 @@ class Settings extends CI_Controller {
 			$arrParam = array('idProcesoInfo' => $this->input->post('hddidProcesosInfo'));
 			$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam);
 			$data['infoProcesosHistorial'] = $this->general_model->get_procesos_historial($arrParam);
-			$data["view"] = 'procesos_historial';
+			$data['view'] = 'procesos_historial';
 			$this->load->view("layout_calendar", $data);
 	}
 	
+	/**
+	 * Documentos
+     * @since 18/5/2021
+     * @author BMOTTAG
+	 */
+	public function documentos_procesos($idProcesoInfo)
+	{
+			$arrParam = array('idProcesoInfo' => $idProcesoInfo);
+			$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam);
+
+			$data['listaTemas'] = $this->general_model->get_temas($arrParam);
+			$data['view'] = 'documentos';
+			$this->load->view('layout_calendar', $data);
+	}
+
+	/**
+	 * Form Upload Documents 
+     * @since 25/5/2021
+     * @author BMOTTAG
+	 */
+	public function documents_form($idProcesoInfo, $idTema, $idDocumento='x', $error = '')
+	{			
+			$arrParam = array('idProcesoInfo' => $idProcesoInfo);
+			$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam);
+
+			$arrParam = array('idTema' => $idTema);
+			$data['listaTemas'] = $this->general_model->get_temas($arrParam);
+
+			$data['information'] = FALSE;
+
+			if ($idDocumento != 'x' && $idDocumento != '') {
+				$arrParam = array('idDocumento' => $idDocumento);
+				$data['information'] = $this->general_model->get_links($arrParam);
+			}
+			
+			$data['error'] = $error; //se usa para mostrar los errores al cargar la imagen 			
+
+			$data["view"] = "form_documentos";
+			$this->load->view("layout", $data);
+	}
+
+	/**
+	 * FUNCIÓN PARA SUBIR el archivo
+	 */
+    function do_upload_doc() 
+	{
+        $idProcesoInfo = $this->input->post("hddidProcesosInfo");
+        $idTema = $this->input->post("hddidTema");
+        $idDocumento = $this->input->post("hddIdDocumento");
+        $codigo = $this->input->post("hddCodigo");
+ 
+        $config['upload_path'] = './files/' . $codigo . '/';
+        $config['overwrite'] = FALSE;
+        $config['allowed_types'] = 'pdf|xls|xltx|doc|docx';
+        $config['max_size'] = '3000';
+        $config['max_width'] = '2024';
+        $config['max_height'] = '2008';
+
+        $this->load->library('upload', $config);
+        
+        if (!$this->upload->do_upload() && $_FILES['userfile']['name']!= "") {
+        	//SI EL ARCHIVO FALLA AL SUBIR MOSTRAMOS EL ERROR EN LA VISTA 
+            $error = $this->upload->display_errors();
+            $this->documents_form($idProcesoInfo,$idTema,$idDocumento,$error);
+        }else{
+			if($_FILES['userfile']['name']== ""){
+				$archivo = 'xxx';
+			}else{
+	            $file_info = $this->upload->data();//subimos ARCHIVO
+				
+				$data = array('upload_data' => $this->upload->data());
+				$archivo = $file_info['file_name'];			
+			}
+			//insertar datos
+			if($this->settings_model->saveDocumento($archivo))
+			{
+				$this->session->set_flashdata('retornoExito', 'Se guardó la información.');
+			}else{
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+			redirect('settings/documentos_procesos/' . $idProcesoInfo);
+        }
+    }
 	
 }
