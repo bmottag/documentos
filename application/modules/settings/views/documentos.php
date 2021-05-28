@@ -59,7 +59,8 @@ $(function(){
 		foreach ($listaTemas as $lista):
 			$arrParam = array(
 				'idProcesoInfo' => $infoProcesos[0]['id_proceso_informacion'],
-				'idTema' => $lista['id_tema']
+				'idTema' => $lista['id_tema'],
+				'estado' => 1
 			);
 			$documentoProcesos = $this->general_model->get__documentos_procesos($arrParam);	
 ?>
@@ -76,6 +77,7 @@ $(function(){
 							<?php 
 								$idProcesoInfo =  $infoProcesos[0]['id_proceso_informacion']; 
 								$idTema = $lista['id_tema'];
+								$codigoProceso = $infoProcesos[0]['codigo'];
 							?>
 							<a href="<?php echo base_url('settings/documents_form/' . $idProcesoInfo . '/' . $idTema); ?>">Adicionar Documento</a>
 						</li>
@@ -98,14 +100,17 @@ $(function(){
 							foreach ($documentoProcesos as $item):
 								echo '<tr>';
                                 echo "<td>" . $item['cod'] . "</td>";
-								echo "<td>" . $item['url'] . "</td>";
+								echo "<td>";
+						?>
+<a href='<?php echo base_url('files/' . $codigoProceso . '/' . $item['url'] ); ?>' target="_blank"><?php echo $item['url']; ?></a>
+						<?php
+								echo "</td>";
 								echo "<td>" . $item['shortName'] . "</td>";
 								echo "<td class='text-center'>" . $item['orden'] . "</td>";
 								echo "<td class='text-center'>";
 						?>
-								<button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $item['id_procesos_documento']; ?>" >
-									Editar <span class="glyphicon glyphicon-edit" aria-hidden="true">
-								</button>
+								<a class="btn btn-info btn-xs" href="<?php echo base_url('settings/documents_form/' . $idProcesoInfo . '/' . $idTema . '/' . $item['id_procesos_documento']); ?>">Editar <span class="glyphicon glyphicon-edit" aria-hidden="true">
+								</a>
 								<br><br>
 
 	                            <form  name="formHistorial" id="formHistorial" method="post" action="<?php echo base_url("settings/historial_procesos"); ?>">

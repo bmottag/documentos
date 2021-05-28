@@ -342,7 +342,7 @@ class Settings extends CI_Controller {
 
 			if ($idDocumento != 'x' && $idDocumento != '') {
 				$arrParam = array('idDocumento' => $idDocumento);
-				$data['information'] = $this->general_model->get_links($arrParam);
+				$data['information'] = $this->general_model->get__documentos_procesos($arrParam);
 			}
 			
 			$data['error'] = $error; //se usa para mostrar los errores al cargar la imagen 			
@@ -358,7 +358,7 @@ class Settings extends CI_Controller {
 	{
         $idProcesoInfo = $this->input->post("hddidProcesosInfo");
         $idTema = $this->input->post("hddidTema");
-        $idDocumento = $this->input->post("hddIdDocumento");
+        $idDocumento = $this->input->post("hddidDocumento");
         $codigo = $this->input->post("hddCodigo");
  
         $config['upload_path'] = './files/' . $codigo . '/';

@@ -15,7 +15,7 @@
 					<input type="hidden" class="form-control" id="hddidProcesosInfo" name="hddidProcesosInfo" value="<?php echo $infoProcesos[0]['id_proceso_informacion']; ?>" />
 					<input type="hidden" class="form-control" id="hddCodigo" name="hddCodigo" value="<?php echo $infoProcesos[0]['codigo']; ?>" />
 					<input type="hidden" class="form-control" id="hddidTema" name="hddidTema" value="<?php echo $listaTemas[0]['id_tema']; ?>" />
-					<input type="hidden" id="hddIdDocumento" name="hddIdDocumento" value="<?php echo $information?$information[0]["id_procesos_documento"]:""; ?>"/>
+					<input type="hidden" id="hddidDocumento" name="hddidDocumento" value="<?php echo $information?$information[0]["id_procesos_documento"]:""; ?>"/>
 
 						<div class="form-group">
 							<label class="col-sm-4 control-label" for="codigo">Código: *</label>

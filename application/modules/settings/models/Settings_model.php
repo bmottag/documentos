@@ -174,7 +174,7 @@
 		{
 				$idDocumento = $this->input->post('hddidDocumento');
 				$idUser = $this->session->userdata("id");
-				
+			
 				$data = array(
 					'fk_id_proceso_informacion' => $this->input->post('hddidProcesosInfo'),
 					'fk_id_tema' => $this->input->post('hddidTema'),
@@ -194,7 +194,7 @@
 				//revisar si es para adicionar o editar
 				if ($idDocumento == '') {
 					$query = $this->db->insert('procesos_documentos', $data);			
-				} else {
+				}else{
 					$this->db->where('id_procesos_documento', $idDocumento);
 					$query = $this->db->update('procesos_documentos', $data);
 				}

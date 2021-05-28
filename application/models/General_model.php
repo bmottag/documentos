@@ -258,37 +258,6 @@ class General_model extends CI_Model {
 	}
 
 		/**
-		 * Consulta de candidatos
-		 * @since 19/3/2021
-		 */
-		public function get_candidatos_info($arrData)
-		{
-				$this->db->select();
-				$this->db->join('candidatos_puntajes X', 'X.fk_id_candidato_p  = C.id_candidato', 'LEFT');
-				$this->db->join('param_nivel_academico A', 'A.id_nivel_academico = C.fk_id_nivel_academico', 'INNER');
-				$this->db->join('proceso P', 'P.id_proceso = C.fk_id_proceso', 'INNER');
-				if (array_key_exists("idCandidato", $arrData)) {
-					$this->db->where('C.id_candidato', $arrData["idCandidato"]);
-				}
-				if (array_key_exists("numeroIdentificacion", $arrData)) {
-					$this->db->where('C.numero_identificacion', $arrData["numeroIdentificacion"]);
-				}
-				if (array_key_exists("estadoCandidato", $arrData)) {
-					$this->db->where('C.estado_candidato', $arrData["estadoCandidato"]);
-				}
-
-				$this->db->order_by('C.nombres, C.apellidos', 'asc');
-
-				$query = $this->db->get('candidatos C');
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
-
-		/**
 		 * Consultar registros de procesos
 		 * @since 18/5/2021
 		 */
@@ -381,11 +350,17 @@ class General_model extends CI_Model {
 		public function get__documentos_procesos($arrData)
 		{
 				$this->db->select();
+				if (array_key_exists("idDocumento", $arrData)) {
+					$this->db->where('D.id_procesos_documento', $arrData["idDocumento"]);
+				}
 				if (array_key_exists("idProcesoInfo", $arrData)) {
 					$this->db->where('D.fk_id_proceso_informacion', $arrData["idProcesoInfo"]);
 				}
 				if (array_key_exists("idTema", $arrData)) {
 					$this->db->where('D.fk_id_tema', $arrData["idTema"]);
+				}
+				if (array_key_exists("estado", $arrData)) {
+					$this->db->where('D.estado', $arrData["estado"]);
 				}
 				$this->db->order_by('D.orden', 'asc');
 
