@@ -205,6 +205,49 @@
 				}
 		}
 
+		/**
+		 * Add Auditoria Documentos
+		 * @since 18/5/2021
+		 */
+		public function saveAuditoriaDocumentos() 
+		{
+				$idUser = $this->session->userdata("id");
+				$idDocumento = $this->input->post('hddidDocumento');
+
+				if($idDocumento == ''){
+					if($_FILES['userfile']['name']== ""){
+						$observacion = 'Nuevo, no se cargo documento';
+					}else{
+						$observacion = 'Nuevo, se cargo documento';
+					}
+				}else{
+					if($_FILES['userfile']['name']== ""){
+						$observacion = 'Actualización de información, no se actualiza documento';
+					}else{
+						$observacion = 'Se actualiza documento';
+					}
+				}
+				
+				$data = array(
+					'fk_id_proceso_informacion' => $this->input->post('hddidProcesosInfo'),
+					'fk_id_tema' => $this->input->post('hddidTema'),
+					'fk_id_usuario' => $idUser,
+					'fecha_registro' => date("Y-m-d G:i:s"),
+					'cod' => $this->input->post('codigo'),
+					'shortName' => $this->input->post('nombre'),
+					'longName' => '',
+					'orden' => $this->input->post('orden'),
+					'estado' => $this->input->post('estado'),
+					'observacion' => $observacion
+				);	
+				$query = $this->db->insert('auditoria_documentos', $data);
+
+				if ($query) {
+					return true;
+				} else {
+					return false;
+				}
+		}
 
 		
 	    

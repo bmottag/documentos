@@ -363,7 +363,7 @@ class Settings extends CI_Controller {
  
         $config['upload_path'] = './files/' . $codigo . '/';
         $config['overwrite'] = FALSE;
-        $config['allowed_types'] = 'pdf|xls|xltx|doc|docx';
+        $config['allowed_types'] = 'pdf|xls|xlsx|xltx|doc|docx';
         $config['max_size'] = '3000';
         $config['max_width'] = '2024';
         $config['max_height'] = '2008';
@@ -386,6 +386,8 @@ class Settings extends CI_Controller {
 			//insertar datos
 			if($this->settings_model->saveDocumento($archivo))
 			{
+				//guardo regitro en la tabla auditoria
+				$this->settings_model->saveAuditoriaDocumentos();
 				$this->session->set_flashdata('retornoExito', 'Se guardó la información.');
 			}else{
 				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
