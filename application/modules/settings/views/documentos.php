@@ -50,7 +50,7 @@ $(function(){
 ?> 
 
 
-<!--INICIO HAZARDS -->
+<!--INICIO LISTADO -->
 <?php 
 	if($listaTemas){
 		$ci = &get_instance();
@@ -62,7 +62,7 @@ $(function(){
 				'idTema' => $lista['id_tema'],
 				'estado' => 1
 			);
-			$documentoProcesos = $this->general_model->get__documentos_procesos($arrParam);	
+			$documentoProcesos = $this->general_model->get_documentos_procesos($arrParam);	
 ?>
 	<!-- /.row -->
 	<div class="row">
@@ -113,8 +113,8 @@ $(function(){
 								</a>
 								<br><br>
 
-	                            <form  name="formHistorial" id="formHistorial" method="post" action="<?php echo base_url("settings/historial_procesos"); ?>">
-	                                <input type="hidden" class="form-control" id="hddidProcesosInfo" name="hddidProcesosInfo" value="<?php echo $idProcesoInfo; ?>" />
+	                            <form  name="formHistorial" id="formHistorial" method="post" action="<?php echo base_url("settings/historial_documentos"); ?>">
+	                                <input type="hidden" class="form-control" id="hddidDocumento" name="hddidDocumento" value="<?php echo $item['id_procesos_documento']; ?>" />
 	                                
 	                                <button type="submit" class="btn btn-default btn-xs" id="btnSubmit2" name="btnSubmit2">
 	                                    Ver Cambios <span class="fa fa-th-list" aria-hidden="true" />
@@ -139,7 +139,7 @@ $(function(){
 		endforeach;
 } 
 ?>
-<!--FIN HAZARDS -->
+<!--FIN LISTADO -->
 
 
 				</div>

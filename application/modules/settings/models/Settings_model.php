@@ -193,13 +193,14 @@
 
 				//revisar si es para adicionar o editar
 				if ($idDocumento == '') {
-					$query = $this->db->insert('procesos_documentos', $data);			
+					$query = $this->db->insert('procesos_documentos', $data);
+					$idDocumento = $this->db->insert_id();			
 				}else{
 					$this->db->where('id_procesos_documento', $idDocumento);
 					$query = $this->db->update('procesos_documentos', $data);
 				}
 				if ($query) {
-					return true;
+					return $idDocumento;
 				} else {
 					return false;
 				}
@@ -209,12 +210,12 @@
 		 * Add Auditoria Documentos
 		 * @since 18/5/2021
 		 */
-		public function saveAuditoriaDocumentos() 
+		public function saveAuditoriaDocumentos($idDocumento, $archivo) 
 		{
 				$idUser = $this->session->userdata("id");
-				$idDocumento = $this->input->post('hddidDocumento');
+				$idDocumentoInfo = $this->input->post('hddidDocumento');
 
-				if($idDocumento == ''){
+				if($idDocumentoInfo == ''){
 					if($_FILES['userfile']['name']== ""){
 						$observacion = 'Nuevo, no se cargo documento';
 					}else{
@@ -227,13 +228,21 @@
 						$observacion = 'Se actualiza documento';
 					}
 				}
+
+				if($archivo != 'xxx'){
+					$url = $archivo;
+				}else{
+					$url = '';
+				}
 				
 				$data = array(
+					'fk_id_proceso_documento' => $idDocumento,
 					'fk_id_proceso_informacion' => $this->input->post('hddidProcesosInfo'),
 					'fk_id_tema' => $this->input->post('hddidTema'),
 					'fk_id_usuario' => $idUser,
 					'fecha_registro' => date("Y-m-d G:i:s"),
 					'cod' => $this->input->post('codigo'),
+					'url' => $url,
 					'shortName' => $this->input->post('nombre'),
 					'longName' => '',
 					'orden' => $this->input->post('orden'),

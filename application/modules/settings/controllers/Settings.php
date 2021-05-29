@@ -342,7 +342,7 @@ class Settings extends CI_Controller {
 
 			if ($idDocumento != 'x' && $idDocumento != '') {
 				$arrParam = array('idDocumento' => $idDocumento);
-				$data['information'] = $this->general_model->get__documentos_procesos($arrParam);
+				$data['information'] = $this->general_model->get_documentos_procesos($arrParam);
 			}
 			
 			$data['error'] = $error; //se usa para mostrar los errores al cargar la imagen 			
@@ -384,10 +384,10 @@ class Settings extends CI_Controller {
 				$archivo = $file_info['file_name'];			
 			}
 			//insertar datos
-			if($this->settings_model->saveDocumento($archivo))
+			if($idDocumento = $this->settings_model->saveDocumento($archivo))
 			{
 				//guardo regitro en la tabla auditoria
-				$this->settings_model->saveAuditoriaDocumentos();
+				$this->settings_model->saveAuditoriaDocumentos($idDocumento, $archivo);
 				$this->session->set_flashdata('retornoExito', 'Se guardó la información.');
 			}else{
 				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
@@ -395,5 +395,19 @@ class Settings extends CI_Controller {
 			redirect('settings/documentos_procesos/' . $idProcesoInfo);
         }
     }
+
+	/**
+	 * Historial de documentos
+     * @since 18/5/2021
+     * @author BMOTTAG
+	 */
+	public function historial_documentos()
+	{
+			$arrParam = array('idDocumento' => $this->input->post('hddidDocumento'));
+			$data['infoDocumento'] = $this->general_model->get_documentos_procesos($arrParam);
+			$data['infoDocumentoHistorial'] = $this->general_model->get_documentos_historial($arrParam);
+			$data['view'] = 'documentos_historial';
+			$this->load->view("layout_calendar", $data);
+	}
 	
 }
