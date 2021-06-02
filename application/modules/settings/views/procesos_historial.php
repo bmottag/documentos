@@ -17,9 +17,9 @@
 						<thead>
 							<tr>
                                 <th class='text-center'>Fecha cambio</th>
-                                <th class='text-center'>Realizado por</th>
-                                <th class='text-center'>Título</th>
-                                <th class='text-center'>Texto</th>
+                                <th>Realizado por</th>
+                                <th>Título</th>
+                                <th>Texto</th>
 							</tr>
 						</thead>
 						<tbody>							

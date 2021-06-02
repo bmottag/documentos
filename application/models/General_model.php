@@ -286,6 +286,9 @@ class General_model extends CI_Model {
 				if (array_key_exists("idProceso", $arrData)) {
 					$this->db->where('P.id_proceso ', $arrData["idProceso"]);
 				}
+				if (array_key_exists("codigo", $arrData)) {
+					$this->db->where('I.codigo', $arrData["codigo"]);
+				}
 				if (array_key_exists("idProcesoInfo", $arrData)) {
 					$this->db->where('I.id_proceso_informacion', $arrData["idProcesoInfo"]);
 				}

@@ -361,7 +361,9 @@ class Settings extends CI_Controller {
         $idDocumento = $this->input->post("hddidDocumento");
         $codigo = $this->input->post("hddCodigo");
  
-        $config['upload_path'] = './files/' . $codigo . '/';
+        //$config['upload_path'] = './files/' . $codigo . '/';
+
+		$config['upload_path'] = '../MIPG/' . $codigo . '/';
         $config['overwrite'] = FALSE;
         $config['allowed_types'] = 'pdf|xls|xlsx|xltx|doc|docx';
         $config['max_size'] = '3000';
