@@ -6,7 +6,7 @@
 		<div class="col-lg-12">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<a class="btn btn-primary btn-xs" href=" <?php echo base_url('settings/manuals'); ?> "><span class="glyphicon glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Regresar </a> 
+					<a class="btn btn-primary btn-xs" href=" <?php echo base_url('settings/documentos_procesos/' . $infoProcesos[0]['id_proceso_informacion']); ?> "><span class="glyphicon glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Regresar </a> 
 					<i class="fa fa-image"></i> <strong>DOCUMENTOS </strong> - <?php echo $infoProcesos[0]['title']; ?> - <?php echo $listaTemas[0]['tema']; ?>
 				</div>
 				<div class="panel-body">
@@ -36,7 +36,7 @@
 							<div class="col-sm-5">
 								<select name="orden" id="orden" class="form-control" required>
 									<option value='' >Select...</option>
-									<?php for ($i = 1; $i <= 40; $i++) { ?>
+									<?php for ($i = 1; $i <= 70; $i++) { ?>
 										<option value='<?php echo $i; ?>' <?php if ($information && $i == $information[0]["orden"]) { echo 'selected="selected"'; } ?> ><?php echo $i; ?></option>
 									<?php } ?>									
 								</select>

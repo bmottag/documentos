@@ -89,6 +89,7 @@ $(function(){
 					<table class="table table-hover">
 						<thead>
 							<tr>
+                                <th class='text-center'>#</th>
                                 <th>Código</th>
                                 <th>URL</th>
                                 <th>Nombre</th>
@@ -97,8 +98,11 @@ $(function(){
 							</tr>
 						</thead>
 						<?php
+							$i=0;
 							foreach ($documentoProcesos as $item):
+								$i++;
 								echo '<tr>';
+								echo "<td class='text-center'>" . $i . "</td>";
                                 echo "<td>" . $item['cod'] . "</td>";
 								echo "<td>";
 						?>

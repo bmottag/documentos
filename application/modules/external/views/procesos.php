@@ -62,28 +62,30 @@
 							'estado' => 1
 						);
 						$documentoProcesos = $this->general_model->get_documentos_procesos($arrParam);	
-							if($documentoProcesos){
 						?>
 							<li>
 								<div class="collapsible-header"><?php echo $lista['descripcion']; ?></div>
 								<div class="collapsible-body">
 									<ul>
 										<?php
+										if($documentoProcesos){
 											foreach ($documentoProcesos as $item):
 												$enlace = base_url('files/' . $infoProcesos[0]['codigo'] . '/' . $item['url']);
 										?>
 											<a href="<?php echo $enlace; ?>" alt="" target="_blank">
 												<li><b><?php echo $item['cod']; ?></b> &nbsp;&nbsp;<?php echo $item['shortName']; ?></li>
 											</a>
-										<?php endforeach; 
-
+										<?php 
+											endforeach; 
+										}else{
+											echo 'No se cuentan con documententos de este tipo para la gestión del proceso';
+										}
 
 										?>
 									</ul>
 								</div>
 							</li>
 						<?php 
-							} 
 					endforeach; 
 				}
 					?>
