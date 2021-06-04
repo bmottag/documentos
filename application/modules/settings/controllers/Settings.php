@@ -315,8 +315,9 @@ class Settings extends CI_Controller {
      * @since 18/5/2021
      * @author BMOTTAG
 	 */
-	public function documentos_procesos($idProcesoInfo)
+	public function documentos_procesos($idProcesoInfo, $estado)
 	{
+			$data['estado'] = $estado;
 			$arrParam = array('idProcesoInfo' => $idProcesoInfo);
 			$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam);
 
@@ -394,7 +395,7 @@ class Settings extends CI_Controller {
 			}else{
 				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
 			}
-			redirect('settings/documentos_procesos/' . $idProcesoInfo);
+			redirect('settings/documentos_procesos/' . $idProcesoInfo . '/1');
         }
     }
 

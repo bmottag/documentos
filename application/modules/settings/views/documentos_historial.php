@@ -5,7 +5,7 @@
 		<div class="col-lg-12">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<a class="btn btn-primary btn-xs" href=" <?php echo base_url('settings/documentos_procesos/' . $infoDocumento[0]['fk_id_proceso_informacion']); ?> "><span class="glyphicon glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Regresar </a> 
+					<a class="btn btn-primary btn-xs" href=" <?php echo base_url('settings/documentos_procesos/' . $infoDocumento[0]['fk_id_proceso_informacion'] . '/1'); ?> "><span class="glyphicon glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Regresar </a> 
 					<i class="fa fa-clock-o"></i> CAMBIOS REALIZADOS AL DOCUMENTO: <strong><?php echo $infoDocumento[0]['shortName'] ?></strong>
 				</div>
 				<div class="panel-body">

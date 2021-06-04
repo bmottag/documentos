@@ -92,7 +92,7 @@ $(function(){
 								</button>
 								<br><br>
 
-								<a class="btn btn-success btn-xs" href="<?php echo base_url('settings/documentos_procesos/' . $item['id_proceso_informacion']); ?>">Ver Documentos <span class="fa fa-file-o" aria-hidden="true" /></a>
+								<a class="btn btn-success btn-xs" href="<?php echo base_url('settings/documentos_procesos/' . $item['id_proceso_informacion'] . '/1'); ?>">Ver Documentos <span class="fa fa-file-o" aria-hidden="true" /></a>
 								<br><br>
 	                            <form  name="formHistorial" id="formHistorial" method="post" action="<?php echo base_url("settings/historial_procesos"); ?>">
 	                                <input type="hidden" class="form-control" id="hddidProcesosInfo" name="hddidProcesosInfo" value="<?php echo $item['id_proceso_informacion']; ?>" />

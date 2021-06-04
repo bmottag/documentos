@@ -1,20 +1,3 @@
-<script>
-$(function(){ 
-	$(".btn-info").click(function () {	
-			var oID = $(this).attr("id");
-            $.ajax ({
-                type: 'POST',
-				url: base_url + '/settings/cargarModalProcesos',
-                data: {'idProcesoInfo': oID},
-                cache: false,
-                success: function (data) {
-                    $('#tablaDatos').html(data);
-                }
-            });
-	});	
-});
-</script>
-
 <div id="page-wrapper">
 	<br>
 	
@@ -27,7 +10,14 @@ $(function(){
 					<i class="fa fa-file-o"></i><strong> LISTA DE DOCUMENTOS</strong> - <?php echo $infoProcesos[0]['title']; ?>
 				</div>
 				<div class="panel-body">
-
+					<ul class="nav nav-pills">
+						<?php $idProcesoInfo =  $infoProcesos[0]['id_proceso_informacion'];  ?>
+						<li <?php if($estado == 1){ echo "class='active'";} ?>><a href="<?php echo base_url("settings/documentos_procesos/" . $idProcesoInfo . "/1" ); ?>">Docuemtnos Activos</a>
+						</li>
+						<li <?php if($estado == 2){ echo "class='active'";} ?>><a href="<?php echo base_url("settings/documentos_procesos/" . $idProcesoInfo . "/2" ); ?>">Documentos Inactivos</a>
+						</li>
+					</ul>
+					<br>
 <?php
 	$retornoExito = $this->session->flashdata('retornoExito');
 	if ($retornoExito) {
@@ -58,9 +48,9 @@ $(function(){
 
 		foreach ($listaTemas as $lista):
 			$arrParam = array(
-				'idProcesoInfo' => $infoProcesos[0]['id_proceso_informacion'],
+				'idProcesoInfo' => $idProcesoInfo,
 				'idTema' => $lista['id_tema'],
-				'estado' => 1
+				'estado' => $estado
 			);
 			$documentoProcesos = $this->general_model->get_documentos_procesos($arrParam);	
 ?>
@@ -75,11 +65,13 @@ $(function(){
 					<ul class="nav nav-pills">
 						<li class='active'>
 							<?php 
-								$idProcesoInfo =  $infoProcesos[0]['id_proceso_informacion']; 
 								$idTema = $lista['id_tema'];
 								$codigoProceso = $infoProcesos[0]['codigo'];
+
+								if($estado == 1){
 							?>
 							<a href="<?php echo base_url('settings/documents_form/' . $idProcesoInfo . '/' . $idTema); ?>">Adicionar Documento</a>
+							<?php } ?>
 						</li>
 					</ul>
 
@@ -91,29 +83,29 @@ $(function(){
 							<tr>
                                 <th class='text-center'>#</th>
                                 <th>Código</th>
-                                <th>URL</th>
                                 <th>Nombre</th>
                                 <th class='text-center'>Orden</th>
-                                <th class='text-center'>Editar</th>
+                                <th class='text-center'>Enlaces</th>
 							</tr>
 						</thead>
 						<?php
 							$i=0;
 							foreach ($documentoProcesos as $item):
 								$i++;
-								echo '<tr>';
+								$estiloColor = '';
+								if($estado == 2){
+									$estiloColor = "class='text-danger'";
+								}
+								echo '<tr ' . $estiloColor . '>';
 								echo "<td class='text-center'>" . $i . "</td>";
                                 echo "<td>" . $item['cod'] . "</td>";
-								echo "<td>";
-								$enlace = '../../../doc/' . $codigoProceso . '/' . $item['url'];
-						?>
-								<a href='<?php echo $enlace; ?>' target="_blank"><?php echo $item['url']; ?></a>
-						<?php
-								echo "</td>";
 								echo "<td>" . $item['shortName'] . "</td>";
 								echo "<td class='text-center'>" . $item['orden'] . "</td>";
 								echo "<td class='text-center'>";
+								$enlace = '../../../doc/' . $codigoProceso . '/' . $item['url'];
 						?>
+								<a href='<?php echo $enlace; ?>' target="_blank">Ver Documento</a>
+								<br><br>
 								<a class="btn btn-info btn-xs" href="<?php echo base_url('settings/documents_form/' . $idProcesoInfo . '/' . $idTema . '/' . $item['id_procesos_documento']); ?>">Editar <span class="glyphicon glyphicon-edit" aria-hidden="true">
 								</a>
 								<br><br>
@@ -158,16 +150,6 @@ $(function(){
 </div>
 <!-- /#page-wrapper -->
 				
-<!--INICIO Modal para adicionar PROCESOS -->
-<div class="modal fade text-center" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">    
-	<div class="modal-dialog" role="document">
-		<div class="modal-content" id="tablaDatos">
-
-		</div>
-	</div>
-</div>                       
-<!--FIN Modal para adicionar PROCESOS -->
-
 <!-- Tables -->
 <script>
 $(document).ready(function() {
