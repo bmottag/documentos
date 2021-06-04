@@ -68,9 +68,7 @@
 								<button type="submit" class="btn btn-lg btn-success btn-block" id='btnSubmit' name='btnSubmit'>Ingresar </button>
                             </fieldset>
                         </form>
-						
-                        <br>
-						<a href="<?php echo base_url("login/recover"); ?>">¿Olvidó su contraseña?</a>						
+					
                     </div>
                 </div>
             </div>

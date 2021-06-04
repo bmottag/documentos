@@ -105,8 +105,9 @@ $(function(){
 								echo "<td class='text-center'>" . $i . "</td>";
                                 echo "<td>" . $item['cod'] . "</td>";
 								echo "<td>";
+								$enlace = '../../../doc/' . $codigoProceso . '/' . $item['url'];
 						?>
-<a href='<?php echo base_url('files/' . $codigoProceso . '/' . $item['url'] ); ?>' target="_blank"><?php echo $item['url']; ?></a>
+								<a href='<?php echo $enlace; ?>' target="_blank"><?php echo $item['url']; ?></a>
 						<?php
 								echo "</td>";
 								echo "<td>" . $item['shortName'] . "</td>";

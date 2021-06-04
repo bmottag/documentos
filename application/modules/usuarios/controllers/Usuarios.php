@@ -38,21 +38,13 @@ class Usuarios extends CI_Controller {
 			$passwd = str_replace(array("<",">","[","]","*","^","-","'","="),"",$newPassword); 
 			$idUser = $this->input->post("hddId");
 			
-			$data['linkBack'] = $this->session->userdata("dashboardURL");
+			$data['linkBack'] = "settings/procesos";
 			$data['titulo'] = "<i class='fa fa-unlock fa-fw'></i> CAMBIAR CONTRASEÑA";
 			
 			if($newPassword == $confirm)
 			{					
 					if ($this->usuarios_model->updatePassword()) {
-						
-						//elimino datos anteriores de tabla recuperar
-						$arrParam = array(
-							"table" => "usuarios_llave_contraseña",
-							"primaryKey" => "fk_id_user_ulc",
-							"id" => $idUser
-						);
-						$this->general_model->deleteRecord($arrParam);
-						
+												
 						$data["msj"] = "Se actualizó la contraseña.";
 						$data["msj"] .= "<br><strong>Nombre Usuario: </strong>" . $this->input->post("hddUser");
 						$data["msj"] .= "<br><strong>Contraseña: </strong>" . $passwd;

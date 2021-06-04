@@ -363,7 +363,7 @@ class Settings extends CI_Controller {
  
         //$config['upload_path'] = './files/' . $codigo . '/';
 
-		$config['upload_path'] = '../MIPG/' . $codigo . '/';
+		$config['upload_path'] = '../doc/' . $codigo . '/';
         $config['overwrite'] = FALSE;
         $config['allowed_types'] = 'pdf|xls|xlsx|xltx|doc|docx';
         $config['max_size'] = '3000';
