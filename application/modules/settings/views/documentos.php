@@ -102,7 +102,7 @@
 								echo "<td>" . $item['shortName'] . "</td>";
 								echo "<td class='text-center'>" . $item['orden'] . "</td>";
 								echo "<td class='text-center'>";
-								$enlace = '../../../doc/' . $codigoProceso . '/' . $item['url'];
+								$enlace = '../../../../doc/' . $codigoProceso . '/' . $item['url'];
 						?>
 								<a href='<?php echo $enlace; ?>' target="_blank">Ver Documento</a>
 								<br><br>
