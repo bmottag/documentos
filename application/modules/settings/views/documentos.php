@@ -12,7 +12,7 @@
 				<div class="panel-body">
 					<ul class="nav nav-pills">
 						<?php $idProcesoInfo =  $infoProcesos[0]['id_proceso_informacion'];  ?>
-						<li <?php if($estado == 1){ echo "class='active'";} ?>><a href="<?php echo base_url("settings/documentos_procesos/" . $idProcesoInfo . "/1" ); ?>">Docuemtnos Activos</a>
+						<li <?php if($estado == 1){ echo "class='active'";} ?>><a href="<?php echo base_url("settings/documentos_procesos/" . $idProcesoInfo . "/1" ); ?>">Documentos Activos</a>
 						</li>
 						<li <?php if($estado == 2){ echo "class='active'";} ?>><a href="<?php echo base_url("settings/documentos_procesos/" . $idProcesoInfo . "/2" ); ?>">Documentos Inactivos</a>
 						</li>
