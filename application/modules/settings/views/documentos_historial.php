@@ -18,6 +18,7 @@
 							<tr>
                                 <th class='text-center'>Fecha cambio</th>
                                 <th>Realizado por</th>
+                                <th>Tema</th>
                                 <th>Código</th>
                                 <th>URL</th>
                                 <th>Nombre</th>
@@ -32,8 +33,13 @@
 								echo '<tr>';
                                 echo '<td class="text-center">' . $lista['fecha_registro'] . '</td>';
                                 echo '<td>' . $lista['name'] . '</td>';
+                                echo '<td>' . $lista['descripcion'] . '</td>';
                                 echo '<td>' . $lista['cod'] . '</td>';
-                                echo '<td>' . $lista['url'] . '</td>';
+                                echo '<td>';
+								$codigoProceso = $infoDocumento[0]['codigo'];
+								$enlace = '../../../../doc/' . $codigoProceso . '/' . $lista['url'];
+								echo "<a href='" . $enlace . "' target='_blank'>" . $lista['url'] . "</a>";
+                                echo  '</td>';
                                 echo '<td>' . $lista['shortName'] . '</td>';
                                 echo "<td class='text-center'>" . $lista['orden'] . "</td>";
 								echo "<td class='text-center'>";

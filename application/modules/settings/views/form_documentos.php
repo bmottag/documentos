@@ -7,15 +7,27 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<a class="btn btn-primary btn-xs" href="<?php echo base_url('settings/documentos_procesos/' . $infoProcesos[0]['id_proceso_informacion'] . '/1'); ?> "><span class="glyphicon glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Regresar </a> 
-					<i class="fa fa-image"></i> <strong>DOCUMENTOS </strong> - <?php echo $infoProcesos[0]['title']; ?> - <?php echo $listaTemas[0]['tema']; ?>
+					<i class="fa fa-image"></i> <strong>DOCUMENTOS </strong> - <?php echo $infoProcesos[0]['title']; ?> 
 				</div>
 				<div class="panel-body">
 				
 					<form  name="form_map" id="form_map" class="form-horizontal" method="post" enctype="multipart/form-data" action="<?php echo base_url("settings/do_upload_doc"); ?>">
 					<input type="hidden" class="form-control" id="hddidProcesosInfo" name="hddidProcesosInfo" value="<?php echo $infoProcesos[0]['id_proceso_informacion']; ?>" />
 					<input type="hidden" class="form-control" id="hddCodigo" name="hddCodigo" value="<?php echo $infoProcesos[0]['codigo']; ?>" />
-					<input type="hidden" class="form-control" id="hddidTema" name="hddidTema" value="<?php echo $listaTemas[0]['id_tema']; ?>" />
+					<input type="hidden" class="form-control" id="hddidTema" name="hddidTema" value="<?php echo $idTema; ?>" />
 					<input type="hidden" id="hddidDocumento" name="hddidDocumento" value="<?php echo $information?$information[0]["id_procesos_documento"]:""; ?>"/>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="codigo">Tema: *</label>
+							<div class="col-sm-5">
+								<select name="id_tema" id="id_tema" class="form-control" required>
+									<option value="">Seleccione...</option>
+									<?php for ($i = 0; $i < count($listaTemas); $i++) { ?>
+										<option value="<?php echo $listaTemas[$i]["id_tema"]; ?>" <?php if($idTema == $listaTemas[$i]["id_tema"]) { echo "selected"; }  ?>><?php echo $listaTemas[$i]["descripcion"]; ?></option>	
+									<?php } ?>
+								</select>
+							</div>
+						</div>
 
 						<div class="form-group">
 							<label class="col-sm-4 control-label" for="codigo">Código: *</label>

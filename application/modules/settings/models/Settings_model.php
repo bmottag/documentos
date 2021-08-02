@@ -177,7 +177,7 @@
 			
 				$data = array(
 					'fk_id_proceso_informacion' => $this->input->post('hddidProcesosInfo'),
-					'fk_id_tema' => $this->input->post('hddidTema'),
+					'fk_id_tema' => $this->input->post('id_tema'),
 					'fk_id_usuario' => $idUser,
 					'fecha_registro' => date("Y-m-d G:i:s"),
 					'cod' => $this->input->post('codigo'),
@@ -238,7 +238,7 @@
 				$data = array(
 					'fk_id_proceso_documento' => $idDocumento,
 					'fk_id_proceso_informacion' => $this->input->post('hddidProcesosInfo'),
-					'fk_id_tema' => $this->input->post('hddidTema'),
+					'fk_id_tema' => $this->input->post('id_tema'),
 					'fk_id_usuario' => $idUser,
 					'fecha_registro' => date("Y-m-d G:i:s"),
 					'cod' => $this->input->post('codigo'),

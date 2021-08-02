@@ -336,9 +336,10 @@ class Settings extends CI_Controller {
 			$arrParam = array('idProcesoInfo' => $idProcesoInfo);
 			$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam);
 
-			$arrParam = array('idTema' => $idTema);
+			
 			$data['listaTemas'] = $this->general_model->get_temas($arrParam);
 
+			$data['idTema'] = $idTema;
 			$data['information'] = FALSE;
 
 			if ($idDocumento != 'x' && $idDocumento != '') {

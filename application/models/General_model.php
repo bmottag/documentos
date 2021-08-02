@@ -352,7 +352,8 @@ class General_model extends CI_Model {
 		 */
 		public function get_documentos_procesos($arrData)
 		{
-				$this->db->select();
+				$this->db->select('D.*, I.codigo');
+				$this->db->join('procesos_informacion I', 'I.id_proceso_informacion = D.fk_id_proceso_informacion', 'INNER');
 				if (array_key_exists("idDocumento", $arrData)) {
 					$this->db->where('D.id_procesos_documento', $arrData["idDocumento"]);
 				}
@@ -383,8 +384,9 @@ class General_model extends CI_Model {
 		 */
 		public function get_documentos_historial($arrData)
 		{
-				$this->db->select("A.*, CONCAT(first_name, ' ', last_name) name");
+				$this->db->select("A.*, CONCAT(first_name, ' ', last_name) name, T.descripcion");
 				$this->db->join('usuarios U', 'U.id_user = A.fk_id_usuario', 'INNER');
+				$this->db->join('temas T', 'T.id_tema = A.fk_id_tema', 'INNER');
 				if (array_key_exists("idDocumento", $arrData)) {
 					$this->db->where('A.fk_id_proceso_documento', $arrData["idDocumento"]);
 				}
