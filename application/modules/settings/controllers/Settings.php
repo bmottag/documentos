@@ -360,7 +360,7 @@ class Settings extends CI_Controller {
 	{
         $idProcesoInfo = $this->input->post("hddidProcesosInfo");
         $idTema = $this->input->post("hddidTema");
-        $idDocumento = $this->input->post("hddidDocumento");
+        $nuevoDocumento = $idDocumento = $this->input->post("hddidDocumento");
         $codigo = $this->input->post("hddCodigo");
  
         //$config['upload_path'] = './files/' . $codigo . '/';
@@ -390,6 +390,14 @@ class Settings extends CI_Controller {
 			//insertar datos
 			if($idDocumento = $this->settings_model->saveDocumento($archivo))
 			{
+				//si es nuevo documento entonces actualizo el orden de los demas documentos
+				//si es actaulizacion verifica si el tema es diferente
+				$idTemaNuevo = $this->input->post('id_tema');
+				$hddOrden = $this->input->post('hddOrden');
+				$orden = $this->input->post('orden');
+				if ($nuevoDocumento == '' || ($nuevoDocumento != '' && $idTemaNuevo != $idTema) || ($nuevoDocumento != '' && $hddOrden != $orden)) {
+					$this->updateOrdeDocumentos($idProcesoInfo, $idTemaNuevo, $idDocumento, $orden);
+				}
 				//guardo regitro en la tabla auditoria
 				$this->settings_model->saveAuditoriaDocumentos($idDocumento, $archivo);
 				$this->session->set_flashdata('retornoExito', 'Se guardó la información.');
@@ -413,5 +421,30 @@ class Settings extends CI_Controller {
 			$data['view'] = 'documentos_historial';
 			$this->load->view("layout_calendar", $data);
 	}
+
+	/**
+	 * Actaulizacion del orden de los demas documentos
+     * @since 2/8/2021
+     * @author BMOTTAG
+	 */
+	public function updateOrdeDocumentos($idProcesoInfo, $idTema, $idDocumento, $orden)
+	{
+			//listad de los documentos a cambiar
+			$arrParam = array(
+				"idProcesoInfo" => $idProcesoInfo,
+				"idTema" => $idTema,
+				"idDocumento" => $idDocumento,
+				"orden" => $orden
+			);
+			$infoDocumentosOrder = $this->general_model->get_documentos_procesos_orden($arrParam);
+
+			if($infoDocumentosOrder){
+				$this->settings_model->upadateDocumentosProcesosOrden($infoDocumentosOrder);
+			}
+
+			return true;
+
+	}	
+
 	
 }

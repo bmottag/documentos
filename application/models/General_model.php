@@ -401,6 +401,37 @@ class General_model extends CI_Model {
 				}
 		}
 
+		/**
+		 * Consultar ducumentos para actualizar el orden
+		 * @since 2/08/2021
+		 */
+		public function get_documentos_procesos_orden($arrData)
+		{
+				$this->db->select('id_procesos_documento, orden ');
+				if (array_key_exists("idDocumento", $arrData)) {
+					$this->db->where('D.id_procesos_documento !=', $arrData["idDocumento"]);
+				}
+				if (array_key_exists("idProcesoInfo", $arrData)) {
+					$this->db->where('D.fk_id_proceso_informacion', $arrData["idProcesoInfo"]);
+				}
+				if (array_key_exists("idTema", $arrData)) {
+					$this->db->where('D.fk_id_tema', $arrData["idTema"]);
+				}
+				if (array_key_exists("orden", $arrData)) {
+					$this->db->where('D.orden >=', $arrData["orden"]);
+				}
+				$this->db->where('D.estado', 1);
+
+
+				$query = $this->db->get('procesos_documentos D');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
 
 
 }

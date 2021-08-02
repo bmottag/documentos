@@ -258,6 +258,26 @@
 				}
 		}
 
+		/**
+		 * Update order
+		 * @since 2/8/2021
+		 */
+		public function upadateDocumentosProcesosOrden($arrData) 
+		{
+				$tot = count($arrData);
+				for ($i = 0; $i < $tot; $i++) {
+					$data['orden'] = $arrData[$i]['orden'] + 1;
+					$this->db->where('id_procesos_documento', $arrData[$i]['id_procesos_documento']);
+					$query = $this->db->update('procesos_documentos', $data);					
+				}
+
+				if ($query) {
+					return true;
+				} else{
+					return false;
+				}
+		}
+
 		
 	    
 	}
