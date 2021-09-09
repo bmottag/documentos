@@ -24,6 +24,11 @@ $(function(){
 			<div class="panel panel-green">
 				<div class="panel-heading">
 					<i class="fa fa-dashboard"></i> <strong>LISTA DE PROCESOS</strong>
+					<div class="pull-right">
+						<div class="btn-group">
+                            <a class="btn btn-success btn-xs" href='<?php echo base_url('reportes/generaReporteFinalXLS') ?>' target='_blank'><i class="fa fa-file-excel-o"></i> Descarcar Listado Maestro de Docuementos</a>
+						</div>
+					</div>
 				</div>
 				<div class="panel-body">
 
