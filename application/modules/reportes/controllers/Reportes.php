@@ -32,36 +32,41 @@ class Reportes extends CI_Controller {
 			// Create a first sheet
 			$objPHPExcel->setActiveSheetIndex(0);
 						
-			$objPHPExcel->getActiveSheet()->setCellValue('A1', 'Tipo de Proceso')
-										->setCellValue('B1', 'Proceso')
-										->setCellValue('C1', 'Código')
-										->setCellValue('D1', 'Tema')
-										->setCellValue('E1', 'Documento')
-										->setCellValue('F1', 'Código Documento')
-										->setCellValue('G1', 'Fecha última actualización');
+			$objPHPExcel->getActiveSheet()->setCellValue('A1', 'ITEM')
+										  ->setCellValue('B1', 'TIPO DE PROCESO')
+										  ->setCellValue('C1', 'PROCESO')
+										  ->setCellValue('D1', 'CODIGO PROCESO')
+										  ->setCellValue('E1', 'TIPO DE DOCUMENTO')
+										  ->setCellValue('F1', 'NOMBRE DEL DOCUMENTO')
+										  ->setCellValue('G1', 'CODIGO DEL DOCUMENTO')
+										  ->setCellValue('H1', 'FECHA ULTIMA ACTUALIZACION');
 										
 			$j=2;
 			if($infoDocumentos){
+				$i=1;
 				foreach ($infoDocumentos as $info):
-						$objPHPExcel->getActiveSheet()->setCellValue('A'.$j, $info['proceso'])
-													  ->setCellValue('B'.$j, $info['title'])
-													  ->setCellValue('C'.$j, $info['codigo'])
-													  ->setCellValue('D'.$j, $info['descripcion'])
-													  ->setCellValue('E'.$j, $info['shortName'])
-													  ->setCellValue('F'.$j, $info['cod'])
-													  ->setCellValue('G'.$j, $info['fecha_registro']);
+						$objPHPExcel->getActiveSheet()->setCellValue('A'.$j, $i)
+													  ->setCellValue('B'.$j, $info['proceso'])
+													  ->setCellValue('C'.$j, $info['title'])
+													  ->setCellValue('D'.$j, $info['codigo'])
+													  ->setCellValue('E'.$j, $info['descripcion'])
+													  ->setCellValue('F'.$j, $info['shortName'])
+													  ->setCellValue('G'.$j, $info['cod'])
+													  ->setCellValue('H'.$j, $info['fecha_registro']);
 						$j++;
+						$i++;
 				endforeach;
 			}
 
 			// Set column widths							  
-			$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(25);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(35);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(8);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(30);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(45);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(8);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(25);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(35);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(8);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(45);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(30);
 
 
 			// Add conditional formatting
