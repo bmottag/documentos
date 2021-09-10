@@ -18,7 +18,7 @@
 							<tr>
                                 <th class='text-center'>Fecha cambio</th>
                                 <th>Realizado por</th>
-                                <th>Título</th>
+                                <th>Proceso</th>
                                 <th>Texto</th>
 							</tr>
 						</thead>

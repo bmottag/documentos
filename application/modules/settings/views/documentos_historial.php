@@ -18,10 +18,10 @@
 							<tr>
                                 <th class='text-center'>Fecha cambio</th>
                                 <th>Realizado por</th>
-                                <th>Tema</th>
+                                <th>Tipo Documento</th>
                                 <th>Código</th>
                                 <th>URL</th>
-                                <th>Nombre</th>
+                                <th>Nombre Documento</th>
                                 <th class='text-center'>Orden</th>
                                 <th class='text-center'>Estado</th>
                                 <th>Observación</th>

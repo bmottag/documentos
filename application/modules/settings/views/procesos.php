@@ -78,7 +78,7 @@ $(function(){
 					<table class="table table-hover">
 						<thead>
 							<tr>
-                                <th class='text-center'>Título</th>
+                                <th class='text-center'>Proceso</th>
                                 <th class='text-center'>Código</th>
                                 <th class='text-center'>Texto</th>
                                 <th class='text-center'>Enlaces</th>

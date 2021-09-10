@@ -19,7 +19,7 @@
 					<input type="hidden" id="hddOrden" name="hddOrden" value="<?php echo $information?$information[0]["orden"]:""; ?>"/>
 
 						<div class="form-group">
-							<label class="col-sm-4 control-label" for="codigo">Tema: *</label>
+							<label class="col-sm-4 control-label" for="codigo">Tipo Documento: *</label>
 							<div class="col-sm-5">
 								<select name="id_tema" id="id_tema" class="form-control" required>
 									<option value="">Seleccione...</option>
@@ -31,14 +31,14 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-sm-4 control-label" for="codigo">Código: *</label>
+							<label class="col-sm-4 control-label" for="codigo">Código Documento: *</label>
 							<div class="col-sm-5">
 								<input type="text" id="codigo" name="codigo" class="form-control" value="<?php echo $information?$information[0]["cod"]:""; ?>" placeholder="Código" maxlength="80" required >
 							</div>
 						</div>
 				
 						<div class="form-group">
-							<label class="col-sm-4 control-label" for="nombre">Nombre: *</label>
+							<label class="col-sm-4 control-label" for="nombre">Nombre Documento: *</label>
 							<div class="col-sm-5">
 								<input type="text" id="nombre" name="nombre" class="form-control" value="<?php echo $information?$information[0]["shortName"]:""; ?>" placeholder="Nombre" maxlength="200" required >
 							</div>

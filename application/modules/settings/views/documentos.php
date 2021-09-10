@@ -83,7 +83,7 @@
 							<tr>
                                 <th class='text-center'>#</th>
                                 <th>Código</th>
-                                <th>Nombre</th>
+                                <th>Nombre Documento</th>
                                 <th class='text-center'>Orden</th>
                                 <th class='text-center'>Enlaces</th>
 							</tr>
