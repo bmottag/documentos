@@ -37,7 +37,7 @@
                                 echo '<td>' . $lista['cod'] . '</td>';
                                 echo '<td>';
 								$codigoProceso = $infoDocumento[0]['codigo'];
-								$enlace = '../../../../doc/' . $codigoProceso . '/' . $lista['url'];
+								$enlace = '../../doc/' . $codigoProceso . '/' . $lista['url'];
 								echo "<a href='" . $enlace . "' target='_blank'>" . $lista['url'] . "</a>";
                                 echo  '</td>';
                                 echo '<td>' . $lista['shortName'] . '</td>';
