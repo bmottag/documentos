@@ -183,6 +183,7 @@
 					'cod' => $this->input->post('codigo'),
 					'shortName' => $this->input->post('nombre'),
 					'longName' => '',
+					'version_documento' =>  $this->input->post('version_documento'),
 					'orden' => $this->input->post('orden'),
 					'estado' => $this->input->post('estado')
 				);
@@ -245,6 +246,7 @@
 					'url' => $url,
 					'shortName' => $this->input->post('nombre'),
 					'longName' => '',
+					'version_documento' =>  $this->input->post('version_documento'),
 					'orden' => $this->input->post('orden'),
 					'estado' => $this->input->post('estado'),
 					'observacion' => $observacion

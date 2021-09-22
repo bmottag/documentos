@@ -43,6 +43,18 @@
 								<input type="text" id="nombre" name="nombre" class="form-control" value="<?php echo $information?$information[0]["shortName"]:""; ?>" placeholder="Nombre" maxlength="200" required >
 							</div>
 						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="version_documento">Version Documento: *</label>
+							<div class="col-sm-5">
+								<select name="version_documento" id="version_documento" class="form-control" required>
+									<option value='' >Select...</option>
+									<?php for ($i = 1; $i <= 50; $i++) { ?>
+										<option value='<?php echo $i; ?>' <?php if ($information && $i == $information[0]["version_documento"]) { echo 'selected="selected"'; } ?> >Version <?php echo $i; ?></option>
+									<?php } ?>									
+								</select>
+							</div>
+						</div>
 						
 						<div class="form-group">
 							<label class="col-sm-4 control-label" for="orden">Orden: *</label>
