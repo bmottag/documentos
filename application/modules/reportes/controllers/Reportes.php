@@ -39,8 +39,9 @@ class Reportes extends CI_Controller {
 										  ->setCellValue('E1', 'TIPO DE DOCUMENTO')
 										  ->setCellValue('F1', 'NOMBRE DEL DOCUMENTO')
 										  ->setCellValue('G1', 'CODIGO DEL DOCUMENTO')
-										  ->setCellValue('H1', 'FECHA ULTIMA ACTUALIZACION')
-										  ->setCellValue('I1', 'VERSION DOCUMENTO');
+										  ->setCellValue('H1', 'FECHA ELABORACIÓN DEL DOCUMENTO')
+										  ->setCellValue('I1', 'FECHA ULTIMA ACTUALIZACION')
+										  ->setCellValue('J1', 'VERSION DOCUMENTO');
 										
 			$j=2;
 			if($infoDocumentos){
@@ -53,8 +54,9 @@ class Reportes extends CI_Controller {
 													  ->setCellValue('E'.$j, $info['descripcion'])
 													  ->setCellValue('F'.$j, $info['shortName'])
 													  ->setCellValue('G'.$j, $info['cod'])
-													  ->setCellValue('H'.$j, $info['fecha_registro'])
-													  ->setCellValue('I'.$j, 'V. ' . $info['version_documento']);
+													  ->setCellValue('H'.$j, $info['fecha_elaboracion'])
+													  ->setCellValue('I'.$j, $info['fecha_registro'])
+													  ->setCellValue('J'.$j, 'V. ' . $info['version_documento']);
 						$j++;
 						$i++;
 				endforeach;
@@ -70,6 +72,7 @@ class Reportes extends CI_Controller {
 			$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(20);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(30);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(30);
 
 
 			// Add conditional formatting

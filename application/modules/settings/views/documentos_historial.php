@@ -23,6 +23,7 @@
                                 <th>URL</th>
                                 <th>Nombre Documento</th>
                                 <th class='text-center'>Version</th>
+								<th class='text-center'>Fecha Elaboración Documento</th>
                                 <th class='text-center'>Orden</th>
                                 <th class='text-center'>Estado</th>
                                 <th>Observación</th>
@@ -43,6 +44,7 @@
                                 echo  '</td>';
                                 echo '<td>' . $lista['shortName'] . '</td>';
                                 echo "<td class='text-center'>V. " . $lista['version_documento'] . "</td>";
+								echo "<td class='text-center'>" . $lista['fecha_elaboracion'] . "</td>";
                                 echo "<td class='text-center'>" . $lista['orden'] . "</td>";
 								echo "<td class='text-center'>";
 								switch ($lista['estado']) {

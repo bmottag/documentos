@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <div id="page-wrapper">
 	<br>
 	
@@ -55,7 +58,20 @@
 								</select>
 							</div>
 						</div>
-						
+<script>
+	$( function() {
+		$( "#fecha_elaboracion" ).datepicker({
+			dateFormat: 'yy-mm-dd'
+		});
+	});
+</script>												
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="version_documento">Fecha Elaboración del Documento: *</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" id="fecha_elaboracion" name="fecha_elaboracion" value="<?php echo $information?$information[0]["fecha_elaboracion"]:""; ?>" placeholder="Fecha Elaboración del Documento" required />
+							</div>
+						</div>						
+
 						<div class="form-group">
 							<label class="col-sm-4 control-label" for="orden">Orden: *</label>
 							<div class="col-sm-5">

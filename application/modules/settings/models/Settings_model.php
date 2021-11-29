@@ -184,6 +184,7 @@
 					'shortName' => $this->input->post('nombre'),
 					'longName' => '',
 					'version_documento' =>  $this->input->post('version_documento'),
+					'fecha_elaboracion' =>  $this->input->post('fecha_elaboracion'),
 					'orden' => $this->input->post('orden'),
 					'estado' => $this->input->post('estado')
 				);
@@ -247,6 +248,7 @@
 					'shortName' => $this->input->post('nombre'),
 					'longName' => '',
 					'version_documento' =>  $this->input->post('version_documento'),
+					'fecha_elaboracion' =>  $this->input->post('fecha_elaboracion'),
 					'orden' => $this->input->post('orden'),
 					'estado' => $this->input->post('estado'),
 					'observacion' => $observacion

@@ -84,7 +84,8 @@
                                 <th class='text-center'>#</th>
                                 <th>Código</th>
                                 <th>Nombre Documento</th>
-                                <th class='text-center'>Version</th>
+                                <th class='text-center'>Versión</th>
+								<th class='text-center'>Fecha Elaboración Documento</th>
                                 <th class='text-center'>Orden</th>
                                 <th class='text-center'>Enlaces</th>
 							</tr>
@@ -102,6 +103,7 @@
                                 echo "<td>" . $item['cod'] . "</td>";
 								echo "<td>" . $item['shortName'] . "</td>";
 								echo "<td class='text-center'>V. " . $item['version_documento'] . "</td>";
+								echo "<td class='text-center'>" . $item['fecha_elaboracion'] . "</td>";
 								echo "<td class='text-center'>" . $item['orden'] . "</td>";
 								echo "<td class='text-center'>";
 								$enlace = '../../../../doc/' . $codigoProceso . '/' . $item['url'];
