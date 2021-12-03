@@ -77,7 +77,7 @@
 							<div class="col-sm-5">
 								<select name="orden" id="orden" class="form-control" required>
 									<option value='' >Select...</option>
-									<?php for ($i = 1; $i <= 99; $i++) { ?>
+									<?php for ($i = 1; $i <= 151; $i++) { ?>
 										<option value='<?php echo $i; ?>' <?php if ($information && $i == $information[0]["orden"]) { echo 'selected="selected"'; } ?> ><?php echo $i; ?></option>
 									<?php } ?>									
 								</select>
