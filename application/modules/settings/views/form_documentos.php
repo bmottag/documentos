@@ -131,8 +131,8 @@
 					<div class="col-lg-12">
 						<div class="alert alert-danger">
 								<strong>Nota :</strong><br>
-								Tamaño máximo: 3000 KB
-								
+								Tamaño máximo: 3000 KB<br>
+								Formatos permitidos: pdf - xls - xlsx - xltx - xlsm - doc - docx
 						</div>
 					</div>
 
