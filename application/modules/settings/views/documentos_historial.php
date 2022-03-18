@@ -22,6 +22,7 @@
                                 <th>Código</th>
                                 <th>URL</th>
                                 <th>Nombre Documento</th>
+                                <th class='text-right'>No. Acta</th>
                                 <th class='text-center'>Version</th>
 								<th class='text-center'>Fecha Elaboración Documento</th>
                                 <th class='text-center'>Orden</th>
@@ -43,6 +44,7 @@
 								echo "<a href='" . $enlace . "' target='_blank'>" . $lista['url'] . "</a>";
                                 echo  '</td>';
                                 echo '<td>' . $lista['shortName'] . '</td>';
+                                echo "<td class='text-right'>" . $lista['numero_acta'] . "</td>";
                                 echo "<td class='text-center'>V. " . $lista['version_documento'] . "</td>";
 								echo "<td class='text-center'>" . $lista['fecha_elaboracion'] . "</td>";
                                 echo "<td class='text-center'>" . $lista['orden'] . "</td>";

@@ -8,7 +8,7 @@
 		 */
 		public function get_documentos_totales()
 		{
-				$this->db->select('P.proceso, D.fecha_elaboracion, I.title, I.codigo, T.descripcion, D.cod, D.shortName, D.fecha_registro, D.version_documento');
+				$this->db->select('P.proceso, D.fecha_elaboracion, I.title, I.codigo, T.descripcion, D.cod, D.shortName, D.fecha_registro, D.version_documento, D.numero_acta');
 				$this->db->join('procesos_informacion I', 'I.id_proceso_informacion = D.fk_id_proceso_informacion', 'INNER');
 				$this->db->join('procesos P', 'P.id_proceso = I.fk_id_proceso', 'INNER');
 				$this->db->join('temas T', 'T.id_tema = D.fk_id_tema', 'INNER');

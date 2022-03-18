@@ -186,7 +186,8 @@
 					'version_documento' =>  $this->input->post('version_documento'),
 					'fecha_elaboracion' =>  $this->input->post('fecha_elaboracion'),
 					'orden' => $this->input->post('orden'),
-					'estado' => $this->input->post('estado')
+					'estado' => $this->input->post('estado'),
+					'numero_acta' => $this->input->post('numeroActa')
 				);
 
 				if($archivo != 'xxx'){
@@ -251,7 +252,8 @@
 					'fecha_elaboracion' =>  $this->input->post('fecha_elaboracion'),
 					'orden' => $this->input->post('orden'),
 					'estado' => $this->input->post('estado'),
-					'observacion' => $observacion
+					'observacion' => $observacion,
+					'numero_acta' => $this->input->post('numeroActa')
 				);	
 				$query = $this->db->insert('auditoria_documentos', $data);
 

@@ -48,6 +48,13 @@
 						</div>
 
 						<div class="form-group">
+							<label class="col-sm-4 control-label" for="numeroActa">Número de Acta: *</label>
+							<div class="col-sm-5">
+								<input type="text" id="numeroActa" name="numeroActa" class="form-control" value="<?php echo $information?$information[0]["numero_acta"]:""; ?>" placeholder="Número de Acta" maxlength="10" required >
+							</div>
+						</div>
+
+						<div class="form-group">
 							<label class="col-sm-4 control-label" for="version_documento">Version Documento: *</label>
 							<div class="col-sm-5">
 								<select name="version_documento" id="version_documento" class="form-control" required>

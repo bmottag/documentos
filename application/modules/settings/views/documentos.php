@@ -84,6 +84,7 @@
                                 <th class='text-center'>#</th>
                                 <th>Código</th>
                                 <th>Nombre Documento</th>
+                                <th class='text-right'>No. Acta</th>
                                 <th class='text-center'>Versión</th>
 								<th class='text-center'>Fecha Elaboración Documento</th>
                                 <th class='text-center'>Orden</th>
@@ -102,6 +103,7 @@
 								echo "<td class='text-center'>" . $i . "</td>";
                                 echo "<td>" . $item['cod'] . "</td>";
 								echo "<td>" . $item['shortName'] . "</td>";
+								echo "<td class='text-right'>" . $item['numero_acta'] . "</td>";
 								echo "<td class='text-center'>V. " . $item['version_documento'] . "</td>";
 								echo "<td class='text-center'>" . $item['fecha_elaboracion'] . "</td>";
 								echo "<td class='text-center'>" . $item['orden'] . "</td>";
